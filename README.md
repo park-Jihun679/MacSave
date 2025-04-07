@@ -1,35 +1,35 @@
-# .
+# 📘 Vue.js 가계부 프로젝트
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue.js와 JSON 기반의 mock DB(json-server)를 활용한 간단한 가계부 프로젝트입니다.  
+이 저장소를 클론한 후 아래의 순서대로 실행하면 바로 개발을 시작할 수 있습니다.
 
-## Recommended IDE Setup
+## 🚀 프로젝트 실행 방법
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+### 1. 저장소 클론
 
-## Customize configuration
+```bash
+git clone 'https://github.com/sebin219/MacSave.git'
+```
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### 2. 의존성 설치
 
-## Project Setup
-
-```sh
+```
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 3. 개발 서버 실행
 
-```sh
+```
 npm run dev
 ```
 
-### Compile and Minify for Production
+### 4. JSON DB 서버 실행
 
-```sh
-npm run build
+```
+npm run db
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+## 기타 설정
 
-```sh
-npm run lint
-```
+- **JSON DB 서버 주소**: [`http://localhost:5000`](http://localhost:5000)
+- **개발 서버 주소 (Vite 기본값)**: [`http://localhost:5173`](http://localhost:5173)
