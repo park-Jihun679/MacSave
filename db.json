@@ -7,8 +7,18 @@
       "category": "식비",
       "title": "점심 식사",
       "memo": "회사 근처 분식집",
-      "isFixed": false,
       "type": "지출"
+    }
+  ],
+
+  "fixedExpenses": [
+    {
+      "id": "1712480625123",
+      "date": 15,
+      "title": "넷플릭스 구독",
+      "category": "구독",
+      "amount": 13500,
+      "memo": "프리미엄 요금제"
     }
   ],
 
@@ -19,5 +29,10 @@
       "name": "빅맥",
       "price": 5500
     }
-  ]
+  ],
+
+  "user": {
+    "name": "name",
+    "password": 1234
+  }
 }
