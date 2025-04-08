@@ -1,18 +1,45 @@
 <script setup>
-import HeaderContainer from './components/HeaderContainer.vue' // 경로는 상황에 따라 조정
+import HeaderContainer from './components/HeaderContainer.vue'
+import MenuBar from './components/MenuBar.vue'
 </script>
 
 <template>
-  <div>
+  <div class="app-container">
     <HeaderContainer />
-    <router-view />
-    <!-- 여기에 각 페이지 컴포넌트가 표시됨 -->
+    <div class="main-layout">
+      <MenuBar />
+      <main class="content">
+        <router-view />
+      </main>
+    </div>
   </div>
 </template>
 
 <style>
-body {
+html,
+body,
+#app {
   margin: 0;
+  padding: 0;
+  min-height: 100vh;
   font-family: 'Pretendard', sans-serif;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 헤더 아래 본문 레이아웃 */
+.main-layout {
+  display: flex;
+  align-items: stretch;
+  min-height: calc(100vh - 80px); /* 헤더 높이 제외한 공간 (조정 가능) */
+}
+
+/* 본문 영역 */
+.content {
+  flex: 1;
+  padding: 24px;
 }
 </style>
