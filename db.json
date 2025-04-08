@@ -10,7 +10,6 @@
       "type": "지출"
     }
   ],
-
   "fixedExpenses": [
     {
       "id": "1712480625123",
@@ -21,7 +20,6 @@
       "memo": "프리미엄 요금제"
     }
   ],
-
   "burgers": [
     {
       "id": 1,
@@ -30,7 +28,6 @@
       "price": 5500
     }
   ],
-
   "user": {
     "name": "name",
     "password": 1234
