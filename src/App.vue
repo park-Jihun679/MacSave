@@ -4,7 +4,7 @@ import HeaderContainer from './components/HeaderContainer.vue' // 경로는 상�
 
 <template>
   <div>
-    <Header />
+    <HeaderContainer />
     <router-view />
     <!-- 여기에 각 페이지 컴포넌트가 표시됨 -->
   </div>

@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <div></div>
+  <div>hi</div>
 </template>
 
 <style scoped></style>
