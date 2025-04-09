@@ -1,4 +1,5 @@
 <template>
+  <h2>📝 내역</h2>
   <div class="history-page">
     <div v-if="!showModal">
       <!-- 날짜 및 필터 -->
@@ -19,15 +20,15 @@
       <div class="summary-bar">
         <span class="summary-item">
           <span class="summary-label">전체</span>
-          <span class="amount">{{ filteredTotal }}원</span>
+          <span class="amount">{{ filteredTotal.toLocaleString() }}원</span>
         </span>
         <span class="summary-item income">
           <span class="summary-label">수입</span>
-          <span class="amount">{{ filteredIncome }}원</span>
+          <span class="amount">{{ filteredIncome.toLocaleString() }}원</span>
         </span>
         <span class="summary-item expense">
           <span class="summary-label">지출</span>
-          <span class="amount">{{ filteredExpense }}원</span>
+          <span class="amount">{{ filteredExpense.toLocaleString() }}원</span>
         </span>
       </div>
 
@@ -230,30 +231,24 @@ onMounted(refreshData)
   color: #555;
 }
 .summary-bar {
-  font-size: 24px;
-  font-weight: 330;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f7f0e5;
-  padding: 12px 100px;
-  height: 56px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-  text-align: center;
-  margin-bottom: 10px;
+  background-color: #fef5e7;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin: 10px 0;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .summary-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex: 1;
+  text-align: center;
+  color: #333;
 }
 
-.summary-label {
-  font-size: 20px;
-  font-weight: 600;
-}
+
 
 .income {
   color: #0977a3;
