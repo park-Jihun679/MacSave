@@ -1,3 +1,57 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useUsers } from '@/stores/userStores.js'
+
+const userName = ref('')
+const newName = ref('')
+const userPassword = ref('')
+const newPassword = ref('')
+const editingPassword = ref(false)
+const showRight = ref(false)
+const editingName = ref(false)
+
+const { getUser, setUserPassword, setUserName, resetUser } = useUsers()
+
+function openRightBox() {
+  showRight.value = true
+}
+
+const router = useRouter()
+
+onMounted(async () => {
+  const user = await getUser()
+  userName.value = user.name
+  userPassword.value = user.password
+})
+
+const updateName = async () => {
+  userName.value = newName.value
+  await setUserName(newName.value)
+  newName.value = ''
+}
+
+const updatePassword = async () => {
+  userPassword.value = newPassword.value
+  newPassword.value = parseInt(newPassword.value)
+  await setUserPassword(newPassword.value)
+  newPassword.value = ''
+}
+
+const deleteAccount = async () => {
+  await resetUser()
+
+  userName.value = 'name을 설정해주세요'
+  newPassword.value = ''
+
+  editingPassword.value = false // ?
+  showRight.value = false
+  alert('회원 탈퇴가 완료되었습니다.')
+  sessionStorage.removeItem('authToken')
+  router.push('/lock')
+}
+</script>
+
 <template>
   <div class="settings-container">
     <!-- 왼쪽 박스 -->
@@ -31,7 +85,11 @@
         <!-- 닉네임 수정 모드 -->
         <div class="input-line" v-else>
           <label>• 닉네임 : </label>
-          <input v-model="newName" placeholder="닉네임을 설정해주세요" />
+          <input
+            v-model.trim="newName"
+            placeholder="닉네임을 설정해주세요"
+            @keyup.enter="updateName"
+          />
           <button class="align-right" @click="updateName">저장</button>
         </div>
       </div>
@@ -48,7 +106,13 @@
         <!-- 비밀번호 변경 모드 -->
         <div class="password-line" v-else>
           <label>• 비밀번호 : </label>
-          <input v-model="newPassword" type="text" />
+          <input
+            v-model.number.trim="newPassword"
+            maxlength="4"
+            minlength="4"
+            type="text"
+            @keyup.enter="updatePassword"
+          />
           <button class="align-right" @click="updatePassword">저장</button>
         </div>
       </div>
@@ -61,57 +125,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
-import { useRouter } from 'vue-router'
-
-const userName = ref('')
-const newName = ref('')
-const newPassword = ref('')
-const editingPassword = ref(false)
-const showRight = ref(false)
-const editingName = ref(false)
-
-function openRightBox() {
-  showRight.value = true
-}
-
-const router = useRouter()
-
-onMounted(async () => {
-  const res = await axios.get('http://localhost:5001/user')
-  userName.value = res.data.name?.trim() || 'name'
-  newName.value = userName.value
-})
-
-const updateName = async () => {
-  await axios.patch('http://localhost:5001/user', { name: newName.value })
-  userName.value = newName.value
-  editingName.value = false
-}
-
-const updatePassword = async () => {
-  await axios.patch('http://localhost:5001/user', {
-    password: newPassword.value,
-  })
-  editingPassword.value = false
-}
-
-const deleteAccount = async () => {
-  await axios.patch('http://localhost:5001/user', {
-    name: 'name을 설정해주세요',
-    password: null,
-  })
-  userName.value = 'name을 설정해주세요'
-  newPassword.value = ''
-  editingPassword.value = false
-  showRight.value = false
-  alert('회원 탈퇴가 완료되었습니다.')
-  router.push('/')
-}
-</script>
 
 <style scoped>
 .settings-container {

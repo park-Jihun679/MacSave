@@ -17,7 +17,6 @@ const inputRef = ref(null)
 onMounted(async () => {
   authStore.initAuth()
   const user = await getUser()
-  console.log(user)
   if (user && user.password) {
     userPassWord.value = user.password
     isNew.value = false

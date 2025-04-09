@@ -42,7 +42,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
-  // await authStore.initAuth() //새로고침 시 local 로그인 상태
+
   authStore.initAuth()
   const isLogin = authStore.isLogin
 
