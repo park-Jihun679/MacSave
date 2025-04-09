@@ -1,15 +1,26 @@
 {
-  "transactions": [
+  "incomes": [
+    {
+      "id": "1712480625123",
+      "date": "2025-04-05",
+      "amount": 300000,
+      "category": "용돈",
+      "title": "용돈",
+      "memo": "우리 엄마 최고"
+    }
+  ],
+
+  "expenses": [
     {
       "id": "1712480625123",
       "date": "2025-04-07",
       "amount": 12000,
       "category": "식비",
       "title": "점심 식사",
-      "memo": "회사 근처 분식집",
-      "type": "지출"
+      "memo": "회사 근처 분식집"
     }
   ],
+
   "fixedExpenses": [
     {
       "id": "1712480625123",
@@ -20,6 +31,7 @@
       "memo": "프리미엄 요금제"
     }
   ],
+
   "burgers": [
     {
       "id": 1,
@@ -28,6 +40,7 @@
       "price": 5500
     }
   ],
+
   "user": {
     "name": "name",
     "password": 1234
