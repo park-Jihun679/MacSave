@@ -14,7 +14,7 @@ const categoryClassMap = {
   기타: 'patty-etc',
 }
 
-const maxPattyAreaHeight = 300 // px
+const maxPattyAreaHeight = 240 // px
 
 function getPattyHeight(percentage) {
   const height = (percentage / 100) * maxPattyAreaHeight
@@ -49,9 +49,16 @@ function getPattyHeight(percentage) {
 
 <style scoped>
 .burger-chart {
-  width: 320px;
+  width: 413px; 
+  height: 463px;
   margin: auto;
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  border-radius: 20px;
+  padding: 12px 0;
+  box-sizing: border-box;
 }
 
 .bun {
@@ -65,11 +72,15 @@ function getPattyHeight(percentage) {
 }
 
 .top-bun {
+  display: flex;
+  align-items: flex-end;
+  justify-content: left;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   text-align: left;
+  padding: 8px;
 }
 
 .bottom-bun {
@@ -99,7 +110,7 @@ function getPattyHeight(percentage) {
 }
 
 .patty-life {
-  background-color: #ff8c42;
+  background-color: #a65f35;
 }
 
 .patty-transport {
@@ -108,7 +119,7 @@ function getPattyHeight(percentage) {
 }
 
 .patty-food {
-  background-color: #a65f35;
+  background-color: #ff8c42;
 }
 
 .patty-culture {
