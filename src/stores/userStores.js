@@ -1,5 +1,11 @@
 // import { ref } from 'vue'
+<<<<<<< Updated upstream
 import apiClient from '@/utils/axios'
+=======
+import axios from 'axios'
+
+const API_URL = 'http://localhost:5001/user'
+>>>>>>> Stashed changes
 
 export const useUsers = () => {
   const getUser = async () => {

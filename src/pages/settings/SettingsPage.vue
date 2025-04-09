@@ -1,7 +1,187 @@
-<script setup></script>
-
 <template>
-  <div></div>
+  <div class="settings-container">
+    <!-- 왼쪽 박스 -->
+    <div class="receipt-box left">
+      <h2 class="user-name">
+        {{ userName === 'name' || !userName ? 'name님,' : userName + '님,' }}
+      </h2>
+      <p class="day-msg">우리가 만난지 +1일째😍</p>
+
+      <div class="spacer"></div>
+      <hr class="divider" />
+      <button @click="openRightBox">개인 정보 변경</button>
+      <p class="footer-logo">MacSave 🍔</p>
+    </div>
+
+    <!-- 오른쪽 박스 -->
+    <div class="receipt-box right" v-if="showRight">
+      <!-- 닉네임 -->
+      <div class="field-row">
+        <div class="input-line">
+          <label>닉네임 : </label>
+          <input v-model="newName" placeholder="닉네임을 설정해주세요" />
+          <button @click="updateName">변경</button>
+        </div>
+      </div>
+
+      <!-- 비밀번호 -->
+      <div class="field-row">
+        <div class="password-line" v-if="!editingPassword">
+          <label>비밀번호 : </label>
+          <span>xxxx</span>
+          <button @click="editingPassword = true">변경</button>
+        </div>
+        <div v-else>
+          <input v-model="newPassword" type="text" />
+          <button @click="updatePassword">저장</button>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <hr class="divider" />
+
+      <!-- 회원 탈퇴 -->
+      <button class="delete-btn" @click="deleteAccount">회원 탈퇴</button>
+      <p class="footer-logo">MacSave 🍔</p>
+    </div>
+  </div>
 </template>
 
-<style scoped></style>
+<script setup>
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+import { useRouter } from 'vue-router'
+
+const userName = ref('')
+const newName = ref('')
+const newPassword = ref('')
+const editingPassword = ref(false)
+const showRight = ref(false)
+
+function openRightBox() {
+  showRight.value = true
+}
+
+const router = useRouter()
+
+onMounted(async () => {
+  const res = await axios.get('http://localhost:5001/user')
+  userName.value = res.data.name?.trim() || 'name'
+  newName.value = userName.value
+})
+
+const updateName = async () => {
+  await axios.patch('http://localhost:5001/user', { name: newName.value })
+  userName.value = newName.value
+}
+
+const updatePassword = async () => {
+  await axios.patch('http://localhost:5001/user', {
+    password: newPassword.value,
+  })
+  editingPassword.value = false
+}
+
+const deleteAccount = async () => {
+  await axios.patch('http://localhost:5001/user', {
+    name: 'name을 설정해주세요',
+    password: null,
+  })
+  userName.value = 'name을 설정해주세요'
+  newPassword.value = ''
+  editingPassword.value = false
+  showRight.value = false
+  alert('회원 탈퇴가 완료되었습니다.')
+  router.push('/')
+}
+</script>
+
+<style scoped>
+.settings-container {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.receipt-box {
+  width: 300px;
+  height: 500px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.user-name {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.day-msg {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.divider {
+  width: 100%;
+  height: 2px;
+  background-color: #999;
+  margin-top: auto;
+  margin-bottom: 16px;
+}
+
+button {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background-color: #ffecac;
+  box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.25);
+}
+
+.footer-logo {
+  text-align: center;
+  font-weight: 700;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+  color: #5f5f5f;
+  margin-top: 18px;
+}
+
+.field-row {
+  margin-bottom: 20px;
+}
+
+.input-line {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* 요소 간 간격 */
+}
+
+.password-line {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* 요소 간 간격 */
+}
+
+input {
+  margin-top: 6px;
+  padding: 8px;
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.delete-btn {
+  background-color: #ffb3b3;
+  color: white;
+  font-weight: bold;
+  margin-top: 8px;
+}
+</style>
