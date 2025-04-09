@@ -1,21 +1,23 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useUsers } from '@/stores/userStores.js'
 import { useRouter } from 'vue-router'
+import { useUsers } from '@/stores/userStores.js'
+import { useAuthStore } from '@/stores/authStores.js'
 
 const router = useRouter()
 const { getUser, setUserPassword } = useUsers()
+const authStore = useAuthStore()
 
 const isNew = ref(true)
 const userPassWord = ref('')
 const inputValue = ref('')
 
 const inputRef = ref(null)
-
 // isNew 초기 설정 확인
 onMounted(async () => {
+  authStore.initAuth()
   const user = await getUser()
-  console.log(user.password)
+  console.log(user)
   if (user && user.password) {
     userPassWord.value = user.password
     isNew.value = false
@@ -31,16 +33,17 @@ function checkpw() {
     alert('비밀번호가 설정되었습니다')
     // db.json에 password 저장하기
     setUserPassword(inputValue.value)
-    // ! 홈 화면 가기!
+    // 내역 화면 가기!
 
     userPassWord.value = inputValue.value
+    authStore.login() // 👈 로그인 처리
     router.push('/history')
   } else {
     if (userPassWord.value === inputValue.value) {
-      // ! 홈 화면 가기!
-
-      console.log('비밀번호가 정확함 go home')
+      // 내역 가기!
       inputValue.value = ''
+      authStore.login() // 👈 로그인 처리
+
       router.push('/history')
     } else {
       // 흔들림 효과
@@ -80,7 +83,7 @@ function checkpw() {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 80px); /* 헤더 높이 빼줌 */
+  height: 100vh; /* 헤더 높이 빼줌 */
   background-color: #fefcf7;
 }
 
