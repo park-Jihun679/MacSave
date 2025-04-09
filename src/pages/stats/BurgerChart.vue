@@ -2,7 +2,7 @@
 const props = defineProps({
   totalIncome: Number,
   totalAmount: Number,
-  detailedExpensesByCategory: Object,
+  expenseItems: Object,
 })
 defineEmits(['select-category'])
 </script>
@@ -15,7 +15,7 @@ defineEmits(['select-category'])
 
     <div
       class="patty"
-      v-for="(expense, category) in detailedExpensesByCategory"
+      v-for="(expense, category) in expenseItems"
       :key="category"
       @click="$emit('select-category', category)"
     >

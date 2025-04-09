@@ -82,13 +82,7 @@
     }
   ],
   "user": {
-    "item": {
-      "item": {
-        "name": "name",
-        "password": 1111
-      },
-      "name": "민지"
-    },
-    "password": "1111"
+    "name": "name",
+    "password": 1111
   }
 }
