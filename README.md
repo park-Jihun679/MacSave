@@ -31,5 +31,5 @@ npm run db
 
 ## 기타 설정
 
-- **JSON DB 서버 주소**: [`http://localhost:5000`](http://localhost:5000)
+- **JSON DB 서버 주소**: [`http://localhost:5001`](http://localhost:5001)
 - **개발 서버 주소 (Vite 기본값)**: [`http://localhost:5173`](http://localhost:5173)
