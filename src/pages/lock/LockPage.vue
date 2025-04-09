@@ -1,7 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useUsers } from '@/stores/userStores.js'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const { getUser, setUserPassword } = useUsers()
 
 const isNew = ref(true)
@@ -10,9 +12,10 @@ const inputValue = ref('')
 
 const inputRef = ref(null)
 
-// isNew 초기 설정 확인 null인지 아님 password가 있는지
+// isNew 초기 설정 확인
 onMounted(async () => {
   const user = await getUser()
+  console.log(user.password)
   if (user && user.password) {
     userPassWord.value = user.password
     isNew.value = false
@@ -26,16 +29,19 @@ function checkpw() {
 
   if (isNew.value) {
     alert('비밀번호가 설정되었습니다')
-    // ! 정보를 db.json으로 저장하기
+    // db.json에 password 저장하기
     setUserPassword(inputValue.value)
     // ! 홈 화면 가기!
+
     userPassWord.value = inputValue.value
+    router.push('/history')
   } else {
     if (userPassWord.value === inputValue.value) {
       // ! 홈 화면 가기!
 
       console.log('비밀번호가 정확함 go home')
       inputValue.value = ''
+      router.push('/history')
     } else {
       // 흔들림 효과
       const input = inputRef.value

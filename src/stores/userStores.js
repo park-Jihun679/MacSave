@@ -15,10 +15,13 @@ export const useUsers = () => {
   }
   const setUserPassword = async password => {
     try {
-      const res = await axios.patch(API_URL, {
-        user: {
-          password: password,
-        },
+      // 기존 user 데이터 가져오기
+      const currentUser = await axios.get(API_URL)
+      const currentName = currentUser.data.name
+      // password만 새로운 것으로 수정
+      const res = await axios.put(API_URL, {
+        name: currentName,
+        password: password,
       })
       return res.data
     } catch (e) {
