@@ -33,7 +33,6 @@ function clearCategory() {
 
 <template>
   <div class="stats-layout">
-    <!-- 좌측: 제목 + 필터 + 햄버거 -->
     <div class="left-panel">
       <div class="header-row">
         <h2>📊 4월 햄버거 분석</h2>
@@ -41,25 +40,28 @@ function clearCategory() {
       </div>
       <BurgerChart
         :totalIncome="incomeStore.totalIncomeAmount"
-        :detailedExpensesByCategory="expenseStore.detailedExpensesByCategory"
+        :expenseItems="expenseStore.detailedExpensesByCategory"
         :totalAmount="totalAmount"
         @select-category="handleCategoryClick"
       />
     </div>
 
-    <!-- 우측: 영수증 요약 or 디테일 -->
     <div class="right-panel">
       <div v-if="selectedCategory">
         <ReceiptDetail
           :category="selectedCategory"
-          :items="expenseStore.filteredExpensesByMonth"
+          :items="
+            expenseStore.filteredExpensesByMonth.filter(
+              item => item.category === selectedCategory,
+            )
+          "
           @back="clearCategory"
         />
       </div>
       <div v-else>
         <ReceiptSummary
-          :incomeItems="incomeStore.filteredIncomesByMonth"
-          :expenseItems="expenseStore.filteredExpensesByMonth"
+          :incomeItems="incomeStore.detailedIncomesByCategory"
+          :expenseItems="expenseStore.detailedExpensesByCategory"
         />
       </div>
     </div>
