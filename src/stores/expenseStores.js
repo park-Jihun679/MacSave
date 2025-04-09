@@ -2,6 +2,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import apiClient from '@/utils/axios'
+import { calculatePercentage } from '@/utils/calculate'
 
 export const useExpenseStore = defineStore('expenseStore', () => {
   // state
@@ -21,6 +22,7 @@ export const useExpenseStore = defineStore('expenseStore', () => {
   }
 
   // getter
+  // 현재 월 지출 필터링
   const filteredExpensesByMonth = computed(() => {
     return expenses.value.filter(e => e.date.startsWith(currentMonth.value))
   })
@@ -48,6 +50,20 @@ export const useExpenseStore = defineStore('expenseStore', () => {
     )
   })
 
+  // 카테고리별 지출 + 퍼센트
+  const detailedExpensesByCategory = computed(() => {
+    const total = totalExpenseAmount.value
+    const result = {}
+
+    for (const category in expensesByCategory.value) {
+      const amount = expensesByCategory.value[category]
+      const percentage = calculatePercentage(amount, total)
+      result[category] = { amount, percentage }
+    }
+
+    return result
+  })
+
   return {
     expenses,
     currentMonth,
@@ -55,5 +71,6 @@ export const useExpenseStore = defineStore('expenseStore', () => {
     filteredExpensesByMonth,
     expensesByCategory,
     totalExpenseAmount,
+    detailedExpensesByCategory,
   }
 })
