@@ -1,11 +1,22 @@
 <script setup>
 import { computed } from 'vue'
+
 const props = defineProps(['category', 'items'])
 const emits = defineEmits(['back'])
+
+const isIncome = computed(() => {
+  const incomeCategories = ['용돈', '월급', '기타']
+  return incomeCategories.includes(props.category)
+})
 
 const totalAmount = computed(() =>
   props.items.reduce((sum, item) => sum + item.amount, 0),
 )
+
+const formattedTotal = computed(() => {
+  const amount = totalAmount.value.toLocaleString()
+  return isIncome.value ? `+ ${amount} 원` : `- ${amount} 원`
+})
 </script>
 
 <template>
@@ -21,40 +32,58 @@ const totalAmount = computed(() =>
       </li>
     </ul>
 
-    <p class="total">총 합계: {{ totalAmount.toLocaleString() }} 원</p>
+    <p class="total" :style="{ color: isIncome ? '#007bff' : '#ff3b30' }">
+      합계: {{ formattedTotal }}
+    </p>
   </div>
 </template>
 
 <style scoped>
 .receipt-detail {
-  padding: 16px;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
-
 .back-button {
-  margin-bottom: 12px;
   background: none;
   border: none;
-  font-size: 16px;
+  color: #666;
+  font-size: 14px;
   cursor: pointer;
+  margin-bottom: 0.5rem;
 }
-
+h3 {
+  margin-bottom: 1rem;
+}
 .receipt-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
 .receipt-item {
   display: flex;
   justify-content: space-between;
-  padding: 8px 0;
+  padding: 0.5rem 0;
   border-bottom: 1px solid #eee;
+}
+.receipt-item span {
+  flex: 1;
+}
+.date {
+  color: #999;
   font-size: 14px;
 }
-
+.memo {
+  text-align: center;
+}
+.amount {
+  text-align: right;
+}
 .total {
-  margin-top: 12px;
+  margin-top: 1rem;
   font-weight: bold;
+  font-size: 16px;
   text-align: right;
 }
 </style>

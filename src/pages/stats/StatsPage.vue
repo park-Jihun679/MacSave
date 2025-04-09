@@ -62,6 +62,9 @@ function clearCategory() {
         <ReceiptSummary
           :incomeItems="incomeStore.detailedIncomesByCategory"
           :expenseItems="expenseStore.detailedExpensesByCategory"
+          :totalIncome="incomeStore.totalIncomeAmount"
+          :totalExpense="expenseStore.totalExpenseAmount"
+          :netTotal="totalAmount"
         />
       </div>
     </div>
@@ -74,14 +77,12 @@ function clearCategory() {
   gap: 32px;
 }
 
-/* 왼쪽 영역: 제목 + 필터 + 햄버거 */
 .left-panel {
   flex: 1.2;
   display: flex;
   flex-direction: column;
 }
 
-/* 상단 제목과 필터 정렬 */
 .header-row {
   display: flex;
   align-items: center;
@@ -89,7 +90,6 @@ function clearCategory() {
   margin-bottom: 16px;
 }
 
-/* 오른쪽 영역: 영수증 카드 */
 .right-panel {
   flex: 1;
   background: #fff;
