@@ -51,14 +51,20 @@
   ],
   "burgers": [
     {
-      "id": 1,
+      "id": "1",
       "date": "2025-04",
       "name": "빅맥",
       "price": 5500
     }
   ],
   "user": {
-    "name": "name",
-    "password": 1234
+    "item": {
+      "item": {
+        "name": "name",
+        "password": 1111
+      },
+      "name": "민지"
+    },
+    "password": "1111"
   }
 }
