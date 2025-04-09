@@ -5,69 +5,117 @@ const props = defineProps({
   expenseItems: Object,
 })
 defineEmits(['select-category'])
+
+const categoryClassMap = {
+  생활: 'patty-life',
+  교통: 'patty-transport',
+  식비: 'patty-food',
+  문화: 'patty-culture',
+  기타: 'patty-etc',
+}
+
+const maxPattyAreaHeight = 300 // px
+
+function getPattyHeight(percentage) {
+  const height = (percentage / 100) * maxPattyAreaHeight
+  return Math.max(height, 24) + 'px'
+}
 </script>
 
 <template>
   <div class="burger-chart">
-    <div class="bun top">
-      수입: <strong>{{ totalIncome.toLocaleString() }}</strong> 원
+    <div class="bun top-bun">
+      <span>수입: {{ totalIncome.toLocaleString() }}</span>
     </div>
 
-    <div
-      class="patty"
-      v-for="(expense, category) in expenseItems"
-      :key="category"
-      @click="$emit('select-category', category)"
-    >
-      {{ category }}: <strong>{{ expense.amount.toLocaleString() }}</strong> 원
-      ({{ expense.percentage }}%)
+    <div class="patty-area">
+      <div
+        v-for="(item, category) in expenseItems"
+        :key="category"
+        class="patty"
+        :class="categoryClassMap[category] || 'default-patty'"
+        :style="{ height: getPattyHeight(item.percentage) }"
+        @click="$emit('select-category', category)"
+      >
+        {{ category }}: {{ item.amount.toLocaleString() }}
+      </div>
     </div>
 
-    <div class="bun bottom">
-      총 합계: <strong>{{ totalAmount.toLocaleString() }}</strong> 원
+    <div class="bun bottom-bun">
+      <span>총 합계: {{ totalAmount.toLocaleString() }}</span>
     </div>
   </div>
 </template>
 
 <style scoped>
 .burger-chart {
-  width: 300px;
-  margin: 0 auto;
-  font-family: 'Noto Sans KR', sans-serif;
+  width: 320px;
+  margin: auto;
+  font-weight: bold;
 }
 
 .bun {
-  background-color: #f4c06b;
-  color: #fff;
-  padding: 12px 16px;
-  border-radius: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f4a949;
+  color: white;
+  border-radius: 40px;
+  padding: 8px;
+  margin: 6px 0;
+  font-size: 16px;
+  height: 50px;
+}
+
+.top-bun {
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   text-align: left;
 }
 
-.bun.top {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.bun.bottom {
+.bottom-bun {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  text-align: right;
+}
+
+.patty-area {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 0;
+  background: #fffbe7;
+  border-radius: 16px;
 }
 
 .patty {
-  background-color: #a0522d; /* 갈색 */
-  color: #fff;
-  padding: 10px 16px;
-  margin-bottom: 8px;
+  color: white;
   border-radius: 12px;
-  font-weight: 500;
-  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: height 0.3s ease;
 }
 
-strong {
-  font-weight: 700;
+.patty-life {
+  background-color: #ff8c42;
+}
+
+.patty-transport {
+  background-color: #eee042;
+  color: black;
+}
+
+.patty-food {
+  background-color: #a65f35;
+}
+
+.patty-culture {
+  background-color: #6cd86c;
+}
+
+.patty-etc {
+  background-color: #f5544d;
 }
 </style>
