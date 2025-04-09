@@ -28,6 +28,8 @@ onMounted(async () => {
 const updateName = async () => {
   userName.value = newName.value
   await setUserName(newName.value)
+  alert('닉네임이 변경되었습니다 !') // ✅ 알림 추가
+  editingName.value = false
   newName.value = ''
 }
 
@@ -35,6 +37,8 @@ const updatePassword = async () => {
   userPassword.value = newPassword.value
   newPassword.value = parseInt(newPassword.value)
   await setUserPassword(newPassword.value)
+  alert('비밀번호가 변경되었습니다 !') // ✅ 알림 추가
+  editingPassword.value = false
   newPassword.value = ''
 }
 
@@ -53,6 +57,7 @@ const deleteAccount = async () => {
 </script>
 
 <template>
+  <h2>⚙️ 설정</h2>
   <div class="settings-container">
     <!-- 왼쪽 박스 -->
     <div class="receipt-box left">
