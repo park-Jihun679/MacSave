@@ -82,7 +82,7 @@
     }
   ],
   "user": {
-        "name": "name",
-        "password": 1111
+    "name": "name",
+    "password": 1111
   }
 }
