@@ -4,18 +4,12 @@ import { computed } from 'vue'
 const props = defineProps(['category', 'items'])
 const emits = defineEmits(['back'])
 
-const isIncome = computed(() => {
-  const incomeCategories = ['용돈', '월급', '기타']
-  return incomeCategories.includes(props.category)
-})
-
 const totalAmount = computed(() =>
   props.items.reduce((sum, item) => sum + item.amount, 0),
 )
 
 const formattedTotal = computed(() => {
-  const amount = totalAmount.value.toLocaleString()
-  return isIncome.value ? `+ ${amount} 원` : `- ${amount} 원`
+  return totalAmount.value.toLocaleString()
 })
 </script>
 
@@ -28,13 +22,11 @@ const formattedTotal = computed(() => {
       <li v-for="item in items" :key="item.id" class="receipt-item">
         <span class="date">{{ item.date }}</span>
         <span class="memo">{{ item.title }}</span>
-        <span class="amount">{{ item.amount.toLocaleString() }} 원</span>
+        <span class="amount">- {{ item.amount.toLocaleString() }} 원</span>
       </li>
     </ul>
 
-    <p class="total" :style="{ color: isIncome ? '#007bff' : '#ff3b30' }">
-      합계: {{ formattedTotal }}
-    </p>
+    <p class="total">합계: {{ formattedTotal }}</p>
   </div>
 </template>
 
