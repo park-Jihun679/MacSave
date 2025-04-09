@@ -13,7 +13,7 @@ export const useIncomeStore = defineStore('incomeStore', () => {
   // action
   const fetchIncomes = async () => {
     try {
-      const response = await apiClient.get('./incomes') 
+      const response = await apiClient.get('./incomes')
       incomes.value = response.data
     } catch (err) {
       console.log('수입 내역 로딩 에러: ', err)
@@ -25,5 +25,18 @@ export const useIncomeStore = defineStore('incomeStore', () => {
     return incomes.value.filter(i => i.date.startsWith(currentMonth.value))
   })
 
-  return { incomes, currentMonth, fetchIncomes, filteredIncomesByMonth }
+  const totalIncomeAmount = computed(() => {
+    return filteredIncomesByMonth.value.reduce(
+      (sum, income) => sum + income.amount,
+      0,
+    )
+  })
+
+  return {
+    incomes,
+    currentMonth,
+    fetchIncomes,
+    filteredIncomesByMonth,
+    totalIncomeAmount,
+  }
 })

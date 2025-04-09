@@ -13,7 +13,7 @@ export const useExpenseStore = defineStore('expenseStore', () => {
   // action
   const fetchExpenses = async () => {
     try {
-      const response = await apiClient.get('./expenses') 
+      const response = await apiClient.get('./expenses')
       expenses.value = response.data
     } catch (err) {
       console.log('지출 내역 로딩 에러: ', err)
@@ -25,5 +25,35 @@ export const useExpenseStore = defineStore('expenseStore', () => {
     return expenses.value.filter(e => e.date.startsWith(currentMonth.value))
   })
 
-  return { expenses, currentMonth, fetchExpenses, filteredExpensesByMonth }
+  // 카테고리별 지출 합산
+  const expensesByCategory = computed(() => {
+    const result = {}
+
+    filteredExpensesByMonth.value.forEach(expense => {
+      const category = expense.category
+      if (!result[category]) {
+        result[category] = 0
+      }
+      result[category] += expense.amount
+    })
+
+    return result
+  })
+
+  // 현재 월의 전체 지출 총합
+  const totalExpenseAmount = computed(() => {
+    return filteredExpensesByMonth.value.reduce(
+      (sum, expense) => sum + expense.amount,
+      0,
+    )
+  })
+
+  return {
+    expenses,
+    currentMonth,
+    fetchExpenses,
+    filteredExpensesByMonth,
+    expensesByCategory,
+    totalExpenseAmount,
+  }
 })

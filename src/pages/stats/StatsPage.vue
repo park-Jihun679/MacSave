@@ -1,5 +1,4 @@
 <script setup>
-import { useTransactionsStore } from '@/stores/transactionsStores'
 import { useExpenseStore } from '@/stores/expenseStores'
 import { useIncomeStore } from '@/stores/incomeStores'
 import { ref, onMounted, computed } from 'vue'
@@ -9,24 +8,13 @@ import ReceiptStats from './ReceiptStats.vue'
 
 const filter = ref('category')
 
-const transactionsStore = useTransactionsStore()
-const expenseStore = useExpenseStore()
 const incomeStore = useIncomeStore()
+const expenseStore = useExpenseStore()
 
-const filteredList = computed(() => {
-  const data = transactionsStore.filteredByCurrentMonth
-
-  if (filter.value === 'category') {
-    return transactionsStore.groupByCategory(data)
-  } else if (filter.value === 'week') {
-    return transactionsStore.groupByWeek(data)
-  }
-
-  return []
+const totalAmount = computed(() => {
+  return incomeStore.totalIncomeAmount - expenseStore.totalExpenseAmount
 })
-
 onMounted(() => {
-  transactionsStore.fetchTransactions()
   expenseStore.fetchExpenses()
   incomeStore.fetchIncomes()
 })
@@ -37,13 +25,13 @@ onMounted(() => {
     <h2>📊 4월 햄버거 분석</h2>
     <StatsFilter v-model:filter="filter" />
   </div>
-
-  <p>{{ transactionsStore.filteredByCurrentMonth }}</p>
-  <p>{{ incomeStore.filteredIncomesByMonth }}</p>
-  <p>{{ expenseStore.filteredExpensesByMonth }}</p>
+  <BurgerChart
+    :totalIncome="incomeStore.totalIncomeAmount"
+    :expensesByCategory="expenseStore.expensesByCategory"
+    :totalAmount="totalAmount"
+  />
   <hr />
   <p>{{ filteredList }}</p>
-  <BurgerChart />
   <ReceiptStats />
 </template>
 
