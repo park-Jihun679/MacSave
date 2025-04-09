@@ -35,11 +35,13 @@ body,
   display: flex;
   align-items: stretch;
   min-height: calc(100vh - 80px); /* 헤더 높이 제외한 공간 (조정 가능) */
+  margin-top: 10px;
 }
 
 /* 본문 영역 */
 .content {
   flex: 1;
   padding: 24px;
+  background-color: #FEFCF7;
 }
 </style>
