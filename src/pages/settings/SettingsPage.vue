@@ -15,25 +15,41 @@
 
     <!-- 오른쪽 박스 -->
     <div class="receipt-box right" v-if="showRight">
+      <!-- 프로필 설정 헤더 -->
+      <div class="section-title">
+        <span class="icon">⚙️</span>
+        <span class="text">프로필 설정</span>
+      </div>
       <!-- 닉네임 -->
       <div class="field-row">
-        <div class="input-line">
-          <label>닉네임 : </label>
+        <!-- 닉네임 보기 모드 -->
+        <div class="input-line" v-if="!editingName">
+          <label>• 닉네임 : {{ userName }}</label>
+          <button class="align-right" @click="editingName = true">변경</button>
+        </div>
+
+        <!-- 닉네임 수정 모드 -->
+        <div class="input-line" v-else>
+          <label>• 닉네임 : </label>
           <input v-model="newName" placeholder="닉네임을 설정해주세요" />
-          <button @click="updateName">변경</button>
+          <button class="align-right" @click="updateName">저장</button>
         </div>
       </div>
-
       <!-- 비밀번호 -->
       <div class="field-row">
         <div class="password-line" v-if="!editingPassword">
-          <label>비밀번호 : </label>
+          <label>• 비밀번호 : </label>
           <span>xxxx</span>
-          <button @click="editingPassword = true">변경</button>
+          <button class="align-right" @click="editingPassword = true">
+            변경
+          </button>
         </div>
-        <div v-else>
+
+        <!-- 비밀번호 변경 모드 -->
+        <div class="password-line" v-else>
+          <label>• 비밀번호 : </label>
           <input v-model="newPassword" type="text" />
-          <button @click="updatePassword">저장</button>
+          <button class="align-right" @click="updatePassword">저장</button>
         </div>
       </div>
       <div class="spacer"></div>
@@ -56,6 +72,7 @@ const newName = ref('')
 const newPassword = ref('')
 const editingPassword = ref(false)
 const showRight = ref(false)
+const editingName = ref(false)
 
 function openRightBox() {
   showRight.value = true
@@ -72,6 +89,7 @@ onMounted(async () => {
 const updateName = async () => {
   await axios.patch('http://localhost:5001/user', { name: newName.value })
   userName.value = newName.value
+  editingName.value = false
 }
 
 const updatePassword = async () => {
@@ -143,7 +161,7 @@ button {
   border-radius: 6px;
   border: none;
   cursor: pointer;
-  background-color: #ffecac;
+  background-color: #f4f4f4;
   box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.25);
 }
 
@@ -159,22 +177,37 @@ button {
   margin-bottom: 20px;
 }
 
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.section-title .icon {
+  margin-right: 8px;
+  font-size: 20px;
+}
+
 .input-line {
   display: flex;
   align-items: center;
   gap: 10px; /* 요소 간 간격 */
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .password-line {
   display: flex;
   align-items: center;
   gap: 10px; /* 요소 간 간격 */
+  font-size: 16px;
+  font-weight: 600;
 }
 
 input {
   margin-top: 6px;
   padding: 8px;
-  width: 50%;
+  width: 40%;
   box-sizing: border-box;
 }
 
@@ -183,5 +216,9 @@ input {
   color: white;
   font-weight: bold;
   margin-top: 8px;
+}
+.align-right {
+  margin-left: auto;
+  background-color: #ffecac;
 }
 </style>

@@ -59,10 +59,12 @@
   ],
   "user": {
     "item": {
-      "name": "name",
-      "password": null
+      "item": {
+        "name": "name",
+        "password": 1111
+      },
+      "name": "민지"
     },
-    "name": "name",
-    "password": null
+    "password": "1111"
   }
 }
