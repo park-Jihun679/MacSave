@@ -14,6 +14,7 @@ const expenseStore = useExpenseStore()
 const totalAmount = computed(() => {
   return incomeStore.totalIncomeAmount - expenseStore.totalExpenseAmount
 })
+
 onMounted(() => {
   expenseStore.fetchExpenses()
   incomeStore.fetchIncomes()
@@ -27,12 +28,15 @@ onMounted(() => {
   </div>
   <BurgerChart
     :totalIncome="incomeStore.totalIncomeAmount"
-    :expensesByCategory="expenseStore.expensesByCategory"
+    :detailedExpensesByCategory="expenseStore.detailedExpensesByCategory"
     :totalAmount="totalAmount"
   />
   <hr />
   <p>{{ filteredList }}</p>
-  <ReceiptStats />
+  <ReceiptStats
+    :incomeItems="incomeStore.filteredIncomesByMonth"
+    :expenseItems="expenseStore.filteredExpensesByMonth"
+  />
 </template>
 
 <style scoped>

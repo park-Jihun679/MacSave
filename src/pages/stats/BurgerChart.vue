@@ -2,7 +2,7 @@
 const props = defineProps({
   totalIncome: Number,
   totalAmount: Number,
-  expensesByCategory: Object,
+  detailedExpensesByCategory: Object,
 })
 </script>
 
@@ -14,10 +14,11 @@ const props = defineProps({
 
     <div
       class="patty"
-      v-for="(amount, category) in expensesByCategory"
+      v-for="(expense, category) in detailedExpensesByCategory"
       :key="category"
     >
-      {{ category }}: <strong>{{ amount.toLocaleString() }}</strong> 원
+      {{ category }}: <strong>{{ expense.amount.toLocaleString() }}</strong> 원
+      ({{ expense.percentage }}%)
     </div>
 
     <div class="bun bottom">
