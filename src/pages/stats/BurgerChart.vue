@@ -4,6 +4,7 @@ const props = defineProps({
   totalAmount: Number,
   detailedExpensesByCategory: Object,
 })
+defineEmits(['select-category'])
 </script>
 
 <template>
@@ -16,6 +17,7 @@ const props = defineProps({
       class="patty"
       v-for="(expense, category) in detailedExpensesByCategory"
       :key="category"
+      @click="$emit('select-category', category)"
     >
       {{ category }}: <strong>{{ expense.amount.toLocaleString() }}</strong> 원
       ({{ expense.percentage }}%)
