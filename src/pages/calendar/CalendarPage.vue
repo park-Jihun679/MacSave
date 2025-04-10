@@ -30,7 +30,7 @@ const calendarOptions = ref({
     right: 'today prev title next',
   },
   buttonText: {
-    today: 'today',
+    today: 'Today',
   },
   titleFormat: {
     year: '2-digit',
