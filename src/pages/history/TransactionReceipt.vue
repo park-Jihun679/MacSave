@@ -37,12 +37,11 @@
     </div>
 
     <img src="/Barcord.png" alt="barcode" />
-
   </div>
 </template>
 
 <script setup>
-import { computed} from 'vue'
+import { computed } from 'vue'
 
 const props = defineProps({
   transaction: Object,
@@ -65,7 +64,6 @@ const emitClose = () => {
   emit('close') // 부모 컴포넌트로 닫기 이벤트 전달
 }
 </script>
-
 
 <style scoped>
 .receipt-container {
@@ -133,7 +131,7 @@ h2 {
 }
 
 .actions button {
-  padding: 5px 48px;
+  padding: 5px 46px;
   border: none;
   border-radius: 10px;
   box-shadow: 2px 0 6px rgba(0, 0, 0, 0.25);
@@ -153,5 +151,7 @@ img {
   border: none;
   font-size: 16px;
   cursor: pointer;
+}
+.actions button {
 }
 </style>
