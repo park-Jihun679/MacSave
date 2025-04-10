@@ -85,7 +85,7 @@ const burgerStore = useBurgerModeStore()
 
 <style scoped>
 .receipt-container {
-  background: #f9f9f9;
+  background: rgba(249, 249, 249, 0.8);
   border: 1px solid #ccc;
   padding: 24px;
   font-family: 'Arial', sans-serif;
@@ -101,7 +101,8 @@ const burgerStore = useBurgerModeStore()
 .receipt-title {
   text-align: center;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .section-title {
@@ -158,7 +159,7 @@ const burgerStore = useBurgerModeStore()
 
 .barcode {
   width: 50%;
-  height: auto;
+  height: 90%;
 }
 
 .brand {
