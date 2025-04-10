@@ -10,7 +10,7 @@ export const useBurgerModeStore = defineStore('burgerMode', {
       const count = Math.floor(amount / state.burgerPrice)
       if (count === 0) return '0'
       if (count <= 5) return '🍔'.repeat(count)
-      return `${count} x 🍔`
+      return `${count.toLocaleString()} x 🍔`
     },
   },
   actions: {
