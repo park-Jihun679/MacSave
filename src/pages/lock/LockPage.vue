@@ -70,7 +70,7 @@ function checkpw() {
       v-model.number.trim="inputValue"
       @keyup.enter="checkpw"
       :placeholder="
-        isNew ? 'please set the password' : 'please enter the password'
+        isNew ? 'please set your password' : 'please enter your password'
       "
       ref="inputRef"
     />
