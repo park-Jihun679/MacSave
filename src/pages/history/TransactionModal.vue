@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="title">내역 추가</div>
     <div class="type-toggle">
       <button
         :class="['toggle-btn', type === '수입' ? 'income' : '']"
@@ -181,6 +182,13 @@ function handleClose() {
 </script>
 
 <style scoped>
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 16px;
+  color: white;
+}
 .type-toggle {
   display: flex;
   justify-content: center;
@@ -209,8 +217,9 @@ function handleClose() {
 }
 
 .modal-content {
+  color: white;
   padding: 24px;
-  background-color: #fff8f8;
+  background-color: #1f1f1f;
   border-radius: 8px;
   max-width: 80%;
   margin: 0 auto;
@@ -250,20 +259,36 @@ label {
   font-size: 14px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  background-color: #f7f0e5;
+  color: white;
+  background-color: #333333;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 .category-btn.selected {
-  background-color: #ffd700;
+  background-color: #666;
   font-weight: bold;
-  border-color: #e1b000;
+  border-color: #ccc;
 }
 
 .form-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 12px;
+  background-color: 33333;
+  justify-content: center;
+  font-size: 24px;
+  gap: 20px;
+  margin-top: 10px;
+}
+.form-actions button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background-color: #666;
+  color: white;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+}
+.form-actions button:hover {
+  background-color: #888;
 }
 </style>
