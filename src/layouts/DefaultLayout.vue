@@ -1,13 +1,11 @@
 <script setup>
 import HeaderContainer from '@/components/HeaderContainer.vue'
-import MenuBar from '@/components/MenuBar.vue'
 </script>
 <!-- DefaultLayout.vue -->
 <template>
   <div class="app-container">
     <HeaderContainer />
     <div class="main-layout">
-      <MenuBar />
       <main class="content">
         <router-view />
       </main>
@@ -18,18 +16,33 @@ import MenuBar from '@/components/MenuBar.vue'
 .app-container {
   display: flex;
   flex-direction: column;
-}
-
-/* 헤더 아래 본문 레이아웃 */
-.main-layout {
-  display: flex;
-  align-items: stretch;
-  min-height: calc(100vh - 80px); /* 헤더 높이 제외한 공간 (조정 가능) */
+  min-height: 100vh;
 }
 
 /* 본문 영역 */
 .content {
+  position: relative;
   flex: 1;
   padding: 24px;
+  background-color: #3a4046;
+
+  z-index: 0;
+  overflow: hidden;
+}
+
+.content::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url('/logo.png');
+  background-repeat: no-repeat;
+  background-size: 550px auto;
+  opacity: 0.35;
+  width: 550px;
+  height: 600px;
+  z-index: -1;
+  pointer-events: none;
 }
 </style>
