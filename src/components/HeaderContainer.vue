@@ -107,7 +107,6 @@ const menuItems = [
   color: #8a8a8a;
   white-space: nowrap;
   position: relative;
-  top: -13px;
   font-weight: 900;
 }
 </style>

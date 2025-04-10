@@ -59,7 +59,7 @@ const deleteAccount = async () => {
 </script>
 
 <template>
-  <h2 class="settings-title">Setting</h2>
+  <h2 class="settings-title"><i class="fa-solid fa-gear"> </i> Setting</h2>
   <div class="settings-container">
     <!-- 왼쪽 박스 -->
     <div class="receipt-box left">
@@ -94,7 +94,7 @@ const deleteAccount = async () => {
           <label>• name : </label>
           <input
             v-model.trim="newName"
-            placeholder="please set the name"
+            placeholder="please set your name"
             @keyup.enter="updateName"
           />
           <button class="align-right" @click="updateName">저장</button>
@@ -112,9 +112,10 @@ const deleteAccount = async () => {
 
         <!-- 비밀번호 변경 모드 -->
         <div class="password-line" v-else>
-          <label>• 비밀번호 : </label>
+          <label>• password : </label>
           <input
             v-model.number.trim="newPassword"
+            placeholder="please change your password"
             maxlength="4"
             minlength="4"
             type="text"
@@ -136,32 +137,48 @@ const deleteAccount = async () => {
 <style scoped>
 .settings-container {
   display: flex;
-  gap: 32px;
+  justify-content: center;
+  gap: 80px;
   align-items: flex-start;
+  margin-top: 32px;
+  transform: translateX(-60px);
 }
 
 .receipt-box {
-  width: 300px;
+  width: 350px;
   height: 500px;
   padding: 24px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  position: relative; /* ✅ 배경을 가상 요소로 넣기 위해 필요 */
-  overflow: hidden; /* ✅ 가상 배경이 삐져나가지 않게 */
-  z-index: 0; /* ✅ 내부 내용 위에 배경을 깔기 위한 전제 */
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* ✅ 배경만 흐리게 처리 */
 .receipt-box::before {
   content: '';
   position: absolute;
   inset: 0;
   background-color: white;
-  opacity: 0.9; /* ✅ 배경만 90% 불투명 */
-  z-index: -1; /* ✅ 내용 아래로 배치 */
-  border-radius: 8px; /* ✅ 박스 둥근 테두리에 맞춰줌 */
+  opacity: 0.8;
+  z-index: -1;
+  border-radius: 8px;
+}
+
+.receipt-box.left {
+  flex-shrink: 0;
+  margin-right: 500px;
+}
+
+.receipt-box.right {
+  width: 600px;
+  height: 500px;
+  position: absolute;
+  top: 0;
+  left: 35%;
+  transform: translateX(190px);
 }
 
 .user-name {
