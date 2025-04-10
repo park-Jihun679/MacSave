@@ -8,6 +8,13 @@ const today = ref(
     day: 'numeric',
   }),
 )
+const hoveredIndex = ref(null)
+const menuItems = [
+  { path: '/history', label: 'Expense', hoverLabel: '지출 내역' },
+  { path: '/calendar', label: 'Calendar', hoverLabel: '캘린더' },
+  { path: '/stats', label: 'Analysis', hoverLabel: '분석' },
+  { path: '/settings', label: 'Setting', hoverLabel: '설정' },
+]
 </script>
 
 <template>
@@ -20,10 +27,19 @@ const today = ref(
     <!-- 오른쪽: 메뉴 + 날짜 묶음 -->
     <div class="right-group">
       <nav class="menu-list">
-        <RouterLink to="/history" class="menu-item" exact>Expense</RouterLink>
-        <RouterLink to="/calendar" class="menu-item" exact>Calendar</RouterLink>
-        <RouterLink to="/stats" class="menu-item" exact>Analysis</RouterLink>
-        <RouterLink to="/settings" class="menu-item" exact>Setting</RouterLink>
+        <RouterLink
+          v-for="(item, index) in menuItems"
+          :key="item.path"
+          :to="item.path"
+          class="menu-item"
+          exact
+          @mouseover="hoveredIndex = index"
+          @mouseleave="hoveredIndex = null"
+          >{{
+            hoveredIndex === index ? item.hoverLabel : item.label
+          }}</RouterLink
+        >
+        <button class="burgerbtn"><i class="fa-solid fa-burger"></i></button>
       </nav>
       <div class="date">{{ today }}</div>
     </div>
@@ -63,13 +79,28 @@ const today = ref(
   color: #ffb400;
   padding: 6px 10px;
   border-radius: 8px;
+  height: 24px;
+  width: 80px;
+  text-align: center;
 }
-
+.menu-item:hover {
+  transition: 0.3s;
+}
 .router-link-exact-active {
   background-color: rgba(255, 223, 145, 0.5);
   box-shadow: inset 0 2px 0px rgba(0, 0, 0, 0.7);
 }
-
+/* 햄버거 버튼 */
+.burgerbtn {
+  background-color: transparent;
+  border-radius: 8px;
+}
+.burgerbtn.active {
+  border: 1px solid #ffb400;
+}
+.fa-burger {
+  color: #ffb400;
+}
 /* 날짜는 맨 오른쪽 */
 .date {
   font-size: 15px;
