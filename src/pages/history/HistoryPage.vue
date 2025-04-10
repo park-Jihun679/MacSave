@@ -5,10 +5,10 @@
       <div class="header-row">
         <h2>Expense</h2>
         <div class="history-filter">
-          <div class="date-display" style="color:  #ffb400;">
-            <button @click="prevPeriod" style="color:  #ffb400;">&lt;</button>
+          <div class="date-display" style="color: #ffb400">
+            <button @click="prevPeriod" style="color: #ffb400">&lt;</button>
             <span class="month-display">{{ formattedDate }}</span>
-            <button @click="nextPeriod" style="color: #ffb400;">&gt;</button>
+            <button @click="nextPeriod" style="color: #ffb400">&gt;</button>
           </div>
           <select v-model="filterMode" class="filter-select">
             <option value="month">월별</option>
@@ -22,15 +22,34 @@
       <div class="summary-bar">
         <span class="summary-item">
           <span class="summary-label">전체</span>
-          <span class="amount">{{ filteredTotal.toLocaleString() }}원</span>
+
+          <span class="amount">
+            {{
+              burgerStore.isBurgerMode
+                ? burgerStore.burgerFormat(filteredTotal)
+                : filteredTotal.toLocaleString() + '원'
+            }}
+          </span>
         </span>
         <span class="summary-item income">
           <span class="summary-label">수입</span>
-          <span class="amount">{{ filteredIncome.toLocaleString() }}원</span>
+          <span class="amount">
+            {{
+              burgerStore.isBurgerMode
+                ? burgerStore.burgerFormat(filteredIncome)
+                : filteredIncome.toLocaleString() + '원'
+            }}
+          </span>
         </span>
         <span class="summary-item expense">
           <span class="summary-label">지출</span>
-          <span class="amount">{{ filteredExpense.toLocaleString() }}원</span>
+          <span class="amount">
+            {{
+              burgerStore.isBurgerMode
+                ? burgerStore.burgerFormat(filteredExpense)
+                : filteredExpense.toLocaleString() + '원'
+            }}
+          </span>
         </span>
       </div>
 
@@ -61,7 +80,6 @@
           >
             <td></td>
             <td style="position: relative">
-
               <span style="display: block; text-align: center">
                 {{ item.date }}
               </span>
@@ -70,7 +88,11 @@
               {{ item.category }}
             </td>
             <td :class="item.type === '수입' ? 'income' : 'expense'">
-              {{ item.amount.toLocaleString() }}원
+              {{
+                burgerStore.isBurgerMode
+                  ? burgerStore.burgerFormat(item.amount)
+                  : item.amount.toLocaleString() + '원'
+              }}
             </td>
             <td>{{ item.title }}</td>
           </tr>
@@ -115,6 +137,9 @@ import TransactionModal from './TransactionModal.vue'
 import TransactionReceipt from './TransactionReceipt.vue'
 import TransactionModalEdit from './TransactionModalEdit.vue'
 import apiClient from '@/utils/axios'
+// 햄버거 버전
+import { useBurgerModeStore } from '@/stores/burgerMode'
+const burgerStore = useBurgerModeStore()
 
 const incomeStore = useIncomeStore()
 const expenseStore = useExpenseStore()
@@ -291,7 +316,6 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-
 
   padding: 6px 12px;
   gap: 80px;

@@ -6,6 +6,9 @@ defineProps({
   totalExpense: Number,
   netTotal: Number,
 })
+// 햄버거 버전
+import { useBurgerModeStore } from '@/stores/burgerMode'
+const burgerStore = useBurgerModeStore()
 </script>
 
 <template>
@@ -15,13 +18,23 @@ defineProps({
     <div class="section">
       <h4 class="section-title">지출</h4>
       <div v-for="(item, category) in expenseItems" :key="category" class="row">
-        <span>{{ category }}:</span>
         <span
-          >-{{ item.amount.toLocaleString() }}원 ({{ item.percentage }}%)</span
+          >{{ category }}: -
+          {{
+            burgerStore.isBurgerMode
+              ? burgerStore.burgerFormat(item.amount)
+              : item.amount.toLocaleString() + '원'
+          }}
+          ({{ item.percentage }}%)</span
         >
       </div>
       <div class="summary total-expense">
-        합계: -{{ totalExpense.toLocaleString() }} 원
+        합계: -
+        {{
+          burgerStore.isBurgerMode
+            ? burgerStore.burgerFormat(totalExpense)
+            : totalExpense.toLocaleString() + '원'
+        }}
       </div>
     </div>
 
@@ -30,13 +43,23 @@ defineProps({
     <div class="section">
       <h4 class="section-title">수입</h4>
       <div v-for="(item, category) in incomeItems" :key="category" class="row">
-        <span>{{ category }}:</span>
         <span
-          >+{{ item.amount.toLocaleString() }}원 ({{ item.percentage }}%)</span
+          >{{ category }}: +
+          {{
+            burgerStore.isBurgerMode
+              ? burgerStore.burgerFormat(item.amount)
+              : item.amount.toLocaleString() + '원'
+          }}
+          ({{ item.percentage }}%)</span
         >
       </div>
       <div class="summary total-income">
-        합계: +{{ totalIncome.toLocaleString() }} 원
+        합계: +
+        {{
+          burgerStore.isBurgerMode
+            ? burgerStore.burgerFormat(totalIncome)
+            : totalIncome.toLocaleString() + '원'
+        }}
       </div>
     </div>
 
@@ -45,8 +68,11 @@ defineProps({
     <div class="net-total">
       총 합계:
       <span :class="netTotal >= 0 ? 'plus' : 'minus'">
-        {{ netTotal >= 0 ? '+' : '-'
-        }}{{ Math.abs(netTotal).toLocaleString() }} 원
+        {{
+          burgerStore.isBurgerMode
+            ? burgerStore.burgerFormat(Math.abs(netTotal))
+            : Math.abs(netTotal).toLocaleString() + '원'
+        }}
       </span>
     </div>
 
