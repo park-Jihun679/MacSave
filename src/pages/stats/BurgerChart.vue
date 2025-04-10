@@ -14,7 +14,7 @@ const categoryClassMap = {
   기타: 'patty-etc',
 }
 
-const maxPattyAreaHeight = 240 // px
+const maxPattyAreaHeight = 220 // px
 
 function getPattyHeight(percentage) {
   const height = (percentage / 100) * maxPattyAreaHeight
@@ -25,7 +25,10 @@ function getPattyHeight(percentage) {
 <template>
   <div class="burger-chart">
     <div class="bun top-bun">
-      <span>수입: {{ totalIncome.toLocaleString() }}</span>
+      <span
+        >수입:<br />
+        {{ totalIncome.toLocaleString() }}</span
+      >
     </div>
 
     <div class="patty-area">
@@ -42,7 +45,7 @@ function getPattyHeight(percentage) {
     </div>
 
     <div class="bun bottom-bun">
-      <span>총 합계: {{ totalAmount.toLocaleString() }}</span>
+      <span>총 합계: <br />{{ totalAmount.toLocaleString() }}</span>
     </div>
   </div>
 </template>
@@ -55,35 +58,43 @@ function getPattyHeight(percentage) {
   font-weight: bold;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 6px;
   border-radius: 20px;
   padding: 12px 0;
   box-sizing: border-box;
+  text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.5);
 }
 
 .bun {
-  background-color: #f4a949;
+  background-color: #f6b544;
   color: white;
   border-radius: 40px;
   padding: 8px;
-  margin: 6px 0;
   font-size: 16px;
   height: 50px;
+  box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3);
 }
 
 .top-bun {
   display: flex;
   align-items: flex-end;
   justify-content: left;
+  background-image: url('/public/sesame.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 85% 70%;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   text-align: left;
-  padding: 8px;
 }
 
 .bottom-bun {
+  background-image: url('/public/sesame.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 85% 70%;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-bottom-left-radius: 40px;
@@ -95,8 +106,7 @@ function getPattyHeight(percentage) {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 8px 0;
-  background: #fffbe7;
+  padding: 6px 0;
   border-radius: 16px;
 }
 
@@ -107,6 +117,7 @@ function getPattyHeight(percentage) {
   align-items: center;
   justify-content: center;
   transition: height 0.3s ease;
+  box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3);
 }
 
 .patty-life {
