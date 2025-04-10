@@ -14,7 +14,7 @@ const onClick = () => emit('click')
   position: fixed;
   bottom: 24px;
   right: 24px;
-  background-color: #EE361A;
+  background-color: #ffb400;
   color: white;
   padding: 12px 16px;
   border-radius: 50%;

@@ -14,9 +14,9 @@
             <button @click="nextPeriod" style="color: #ffb400">&gt;</button>
           </div>
           <select v-model="filterMode" class="filter-select">
-            <option value="month">월별</option>
-            <option value="week">주별</option>
-            <option value="year">연도별</option>
+            <option value="month">Monthly</option>
+            <option value="week">Weekly</option>
+            <option value="year">Yearly</option>
           </select>
         </div>
       </div>
@@ -405,7 +405,7 @@ onMounted(refreshData)
 
 .filter-select {
   color: #ffb400;
-  font-size: 18px;
+  font-size: 16px;
   padding: 8px 12px;
   margin-left: auto;
   border-radius: 5px;
