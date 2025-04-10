@@ -27,7 +27,7 @@ const calendarOptions = ref({
     right: 'today prev title next',
   },
   buttonText: {
-    today: '오늘',
+    today: 'today',
   },
   titleFormat: {
     year: '2-digit',
@@ -161,10 +161,10 @@ watch(
 
 <template>
   <div class="calendar-wrapper">
-    <h2>📅 달력</h2>
+    <h2>Calendar</h2>
 
     <div class="summary-box">
-      <div class="summary-item">
+      <div class="summary-item summary-total">
         전체<br />
         <span class="amount">{{ totalSum.toLocaleString() }} 원</span>
       </div>
@@ -193,6 +193,8 @@ body,
 
 .fc {
   height: 100% !important;
+  background-color: rgb(31, 31, 31);
+  color: #f0f0f0;
 }
 
 .fc-toolbar {
@@ -212,16 +214,20 @@ body,
   gap: 10px;
 }
 
+.fc .fc-col-header-cell {
+  background-color: #333333;
+}
+
 .fc .fc-col-header-cell-cushion {
   font-size: 15px;
   font-weight: 600;
-  color: #333;
+  color: #f2f2f2;
 }
 
 .fc .fc-toolbar-title {
   font-size: 20px;
   font-weight: 500;
-  color: #333;
+  color: #f0f0f0;
 }
 
 .fc-button {
@@ -231,6 +237,8 @@ body,
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  background-color: rgb(51, 51, 51) !important;
+  color: rgb(226, 226, 226) !important;
 }
 
 .fc-button:hover {
@@ -255,25 +263,32 @@ body,
 
 .fc .fc-daygrid-day-number {
   font-size: 16px;
-  color: #333;
+  color: #f0f0f0;
   font-weight: 500;
 }
 
+/* 해당 제외 다른 날짜들 */
 .fc-day-other {
-  background-color: #ebebeb;
+  background-color: rgb(66, 66, 66);
   color: #a8a8a8;
 }
 
+/* 오늘 날짜의 배경색 */
+.fc .fc-day-today {
+  background-color: rgb(36, 78, 41) !important;
+}
+
+/* 기존 스타일 끄기 */
 .fc-event-time,
 .fc-daygrid-event-dot {
   display: none;
 }
-
+/* 요약카드 색상 */
 .summary-box {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fef5e7;
+  background-color: rgba(255, 223, 145, 0.5);
   padding: 10px 20px;
   border-radius: 10px;
   margin: 10px 0;
@@ -288,11 +303,11 @@ body,
 }
 
 .summary-item.income {
-  color: #0077b6;
+  color: rgb(63, 176, 217);
 }
 
 .summary-item.expense {
-  color: #d90429;
+  color: #ff2929;
 }
 
 .summary-item .amount {
@@ -307,19 +322,19 @@ body,
 }
 
 .fc .fc-custom-event .expense {
-  color: #d90429;
+  color: #ff2929;
   font-size: 15px;
   line-height: 1.1;
 }
 
 .fc .fc-custom-event .income {
-  color: #0077b6;
+  color: rgb(63, 176, 217);
   font-size: 15px;
   line-height: 1.1;
 }
 
 .fc .fc-custom-event .total {
-  color: #333;
+  color: #f2f2f2;
   font-size: 15px;
   font-weight: 400;
   line-height: 1.1;
@@ -344,5 +359,19 @@ body,
 .calendar-wrapper {
   max-height: calc(100vh - 0px); /* 헤더나 다른 요소 높이 감안하여 조정 */
   overflow-y: auto;
+}
+
+.calendar-wrapper h2 {
+  color: #ffb400;
+  font-size: 32px;
+}
+
+/* 달력의 테두리 색 선정 */
+.fc .fc-scrollgrid,
+.fc .fc-daygrid-day,
+.fc .fc-daygrid-day-frame,
+.fc .fc-daygrid-body,
+.fc .fc-daygrid-body table {
+  border-color: #b5b5b5 !important;
 }
 </style>
