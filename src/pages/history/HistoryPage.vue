@@ -1,7 +1,7 @@
 <template>
   <h2>📝 내역</h2>
   <div class="history-page">
-    <div v-if="!showModal">
+    <div v-if="!showModal && !showEditModal">
       <!-- 날짜 및 필터 -->
       <div class="history-filter">
         <div class="date-display">
@@ -51,7 +51,12 @@
               <p>데이터가 없습니다.</p>
             </td>
           </tr>
-          <tr v-for="item in filteredTransactions" :key="item.id">
+          <tr
+            v-for="item in filteredTransactions"
+            :key="item.id"
+            @click="openReceipt(item)"
+            style="cursor: pointer"
+          >
             <td></td>
             <td style="position: relative">
               <span
@@ -87,6 +92,23 @@
     @close="showModal = false"
     @saved="refreshData"
   />
+
+  <TransactionReceipt
+    v-if="showReceipt"
+    :transaction="selectedTransaction"
+    :type="selectedTransaction.type"
+    @close="showReceipt = false"
+    @deleted="handleDelete"
+    @edit="openEditModal"
+  />
+
+  <TransactionModalEdit
+  v-if="showEditModal && !showModal "
+  :transaction="selectedTransaction"
+  @close="closeEditModal"
+  @saved="refreshData"
+/>
+
   <FloatingButton @click="showModal = !showModal" />
 </template>
 
@@ -97,6 +119,9 @@ import { useIncomeStore } from '@/stores/incomeStores.js'
 import { useExpenseStore } from '@/stores/expenseStores.js'
 import FloatingButton from './FloatingButton.vue'
 import TransactionModal from './TransactionModal.vue'
+import TransactionReceipt from './TransactionReceipt.vue'
+import TransactionModalEdit from './TransactionModalEdit.vue'
+import apiClient from '@/utils/axios'
 
 const incomeStore = useIncomeStore()
 const expenseStore = useExpenseStore()
@@ -185,6 +210,52 @@ const nextPeriod = () => {
   else if (filterMode.value === 'year')
     currentDate.value = currentDate.value.add(1, 'year')
 }
+// 영수증 및 삭제버튼
+const selectedTransaction = ref(null)
+const showReceipt = ref(false)
+
+const openReceipt = item => {
+  // 이미 같은 항목을 선택한 경우 → 토글 닫기
+  if (selectedTransaction.value?.id === item.id) {
+    showReceipt.value = false
+    selectedTransaction.value = null
+    return
+  }
+
+  // 새로운 항목 선택 → 열기
+  selectedTransaction.value = item
+  showReceipt.value = true
+}
+
+const handleDelete = async (id, type) => {
+  const confirmed = window.confirm('정말 삭제하시겠습니까?')
+  if (!confirmed) return
+
+  const endpoint = type === '수입' ? `/incomes/${id}` : `/expenses/${id}`
+
+  try {
+    await apiClient.delete(endpoint)
+    alert('삭제되었습니다.')
+    await refreshData() // 수입/지출 다시 불러오기
+    showReceipt.value = false // 모달 닫기
+  } catch (error) {
+    console.error(error)
+    alert('삭제 중 오류가 발생했습니다.')
+  }
+}
+
+// 수정 버튼 구현
+const showEditModal = ref(false)
+
+const openEditModal = transaction => {
+  selectedTransaction.value = transaction
+  showEditModal.value = true
+}
+
+const closeEditModal = () => {
+  showEditModal.value = false
+  selectedTransaction.value = null
+}
 
 const refreshData = async () => {
   await incomeStore.fetchIncomes()
@@ -247,8 +318,6 @@ onMounted(refreshData)
   text-align: center;
   color: #333;
 }
-
-
 
 .income {
   color: #0977a3;

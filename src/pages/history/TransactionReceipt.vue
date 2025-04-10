@@ -1,6 +1,8 @@
 <template>
   <div class="receipt-container" v-if="transaction">
-    <h2>지출 상세 내역</h2>
+    <button class="close-btn" @click="emitClose">×</button>
+
+    <h2>{{ isExpense ? '지출 상세 내역' : '수입 상세 내역' }}</h2>
     <hr />
 
     <div class="detail">
@@ -31,15 +33,16 @@
     <hr />
     <div class="actions">
       <button @click="emitDelete">삭제</button>
-      <button @click="handleEdit">수정</button>
+      <button @click="emitEdit">수정</button>
     </div>
 
     <img src="/Barcord.png" alt="barcode" />
+
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed} from 'vue'
 
 const props = defineProps({
   transaction: Object,
@@ -47,15 +50,22 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['deleted', 'edit'])
-const handleEdit = () => {
-  emit('edit', props.transaction)
-}
+
 const isExpense = computed(() => props.type === '지출')
 
 const emitDelete = () => {
   emit('deleted', props.transaction.id, props.type)
 }
+
+const emitEdit = () => {
+  emit('edit', props.transaction) // 부모 컴포넌트로 transaction 데이터 전달
+}
+
+const emitClose = () => {
+  emit('close') // 부모 컴포넌트로 닫기 이벤트 전달
+}
 </script>
+
 
 <style scoped>
 .receipt-container {
