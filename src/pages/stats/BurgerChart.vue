@@ -69,9 +69,9 @@ function getPattyHeight(percentage) {
   background-color: #f6b544;
   color: white;
   border-radius: 40px;
-  padding: 8px;
+  padding: 8px 30px;
   font-size: 16px;
-  height: 50px;
+  height: 55px;
   box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -79,10 +79,10 @@ function getPattyHeight(percentage) {
   display: flex;
   align-items: flex-end;
   justify-content: left;
-  background-image: url('/public/sesame.png');
+  background-image: url('/public/image.png');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 85% 70%;
+  background-size: 83% 45%;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
   border-bottom-left-radius: 0;
@@ -91,10 +91,10 @@ function getPattyHeight(percentage) {
 }
 
 .bottom-bun {
-  background-image: url('/public/sesame.png');
+  background-image: url('/public/image.png');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 85% 70%;
+  background-size: 83% 45%;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-bottom-left-radius: 40px;

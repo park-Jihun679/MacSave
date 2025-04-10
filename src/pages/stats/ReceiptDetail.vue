@@ -33,10 +33,9 @@ const formattedTotal = computed(() => {
 <style scoped>
 .receipt-detail {
   padding: 1rem;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background: #f9f9f9;
 }
+
 .back-button {
   background: none;
   border: none;

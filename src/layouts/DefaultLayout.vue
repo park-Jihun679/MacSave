@@ -17,6 +17,7 @@ import HeaderContainer from '@/components/HeaderContainer.vue'
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: #3a4046;
 }
 
 /* 본문 영역 */
@@ -24,12 +25,10 @@ import HeaderContainer from '@/components/HeaderContainer.vue'
   position: relative;
   flex: 1;
   padding: 24px;
-  background-color: #3a4046;
-
   z-index: 0;
   overflow: hidden;
 }
-
+                 
 .content::before {
   content: '';
   position: absolute;

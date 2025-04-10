@@ -2,13 +2,12 @@
 import { useExpenseStore } from '@/stores/expenseStores'
 import { useIncomeStore } from '@/stores/incomeStores'
 import { ref, onMounted, computed } from 'vue'
-import StatsFilter from './StatsFilter.vue'
 import BurgerChart from './BurgerChart.vue'
 import ReceiptSummary from './ReceiptSummary.vue'
 import ReceiptDetail from './ReceiptDetail.vue'
 
 // const filter = ref('category')
-const nowMonth = new Date().getMonth() + 1
+const monthName = new Date().toLocaleString('en-US', { month: 'long' })
 const selectedCategory = ref(null)
 
 const incomeStore = useIncomeStore()
@@ -36,7 +35,7 @@ function clearCategory() {
   <div class="stats-layout">
     <div class="left-panel">
       <div class="header-row">
-        <h2>📊 {{ nowMonth }}월 햄버거 분석</h2>
+        <h2>{{ monthName }} Analysis</h2>
         <!-- <StatsFilter v-model:filter="filter" /> -->
       </div>
       <BurgerChart
@@ -82,6 +81,13 @@ function clearCategory() {
   flex: 1.2;
   display: flex;
   flex-direction: column;
+  align-items: right;
+}
+
+.right-panel {
+  flex: 1;
+  display: flex;
+  justify-content: left;
 }
 
 .header-row {
@@ -89,5 +95,7 @@ function clearCategory() {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 16px;
+  color: #ffb400;
+  font-size: 21px;
 }
 </style>
