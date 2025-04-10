@@ -1,6 +1,6 @@
 <template>
   <div class="receipt-container" v-if="transaction">
-    <button class="close-btn" @click="emitClose">×</button>
+    <button class="close-btn" @click="emitClose">X</button>
 
     <h2>{{ isExpense ? '지출 상세 내역' : '수입 상세 내역' }}</h2>
     <hr />
@@ -144,5 +144,14 @@ img {
   max-width: 100%;
   height: auto;
   padding: 90% 0px;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
 }
 </style>

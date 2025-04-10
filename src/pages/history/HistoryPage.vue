@@ -1,19 +1,21 @@
 <template>
-  <h2>📝 내역</h2>
   <div class="history-page">
     <div v-if="!showModal && !showEditModal">
       <!-- 날짜 및 필터 -->
-      <div class="history-filter">
-        <div class="date-display">
-          <button @click="prevPeriod">&lt;</button>
-          <span class="month-display">{{ formattedDate }}</span>
-          <button @click="nextPeriod">&gt;</button>
+      <div class="header-row">
+        <h2>Expense</h2>
+        <div class="history-filter">
+          <div class="date-display" style="color:  #ffb400;">
+            <button @click="prevPeriod" style="color:  #ffb400;">&lt;</button>
+            <span class="month-display">{{ formattedDate }}</span>
+            <button @click="nextPeriod" style="color: #ffb400;">&gt;</button>
+          </div>
+          <select v-model="filterMode" class="filter-select">
+            <option value="month">월별</option>
+            <option value="week">주별</option>
+            <option value="year">연도별</option>
+          </select>
         </div>
-        <select v-model="filterMode" class="filter-select">
-          <option value="month">월별</option>
-          <option value="week">주별</option>
-          <option value="year">연도별</option>
-        </select>
       </div>
 
       <!-- 요약 -->
@@ -59,16 +61,7 @@
           >
             <td></td>
             <td style="position: relative">
-              <span
-                style="
-                  position: absolute;
-                  left: 8px;
-                  top: 50%;
-                  transform: translateY(-50%);
-                "
-              >
-                ✅
-              </span>
+
               <span style="display: block; text-align: center">
                 {{ item.date }}
               </span>
@@ -103,11 +96,11 @@
   />
 
   <TransactionModalEdit
-  v-if="showEditModal && !showModal "
-  :transaction="selectedTransaction"
-  @close="closeEditModal"
-  @saved="refreshData"
-/>
+    v-if="showEditModal && selectedTransaction"
+    :transaction="selectedTransaction"
+    @close="closeEditModal"
+    @saved="refreshData"
+  />
 
   <FloatingButton @click="showModal = !showModal" />
 </template>
@@ -138,7 +131,7 @@ const getWeekRange = date => {
 
 const formattedDate = computed(() => {
   if (filterMode.value === 'month') {
-    return currentDate.value.format('YYYY년 MM월')
+    return currentDate.value.format('YY.MM')
   } else if (filterMode.value === 'week') {
     const [start, end] = getWeekRange(currentDate.value)
     return `${start.format('MM.DD')} ~ ${end.format('MM.DD')}`
@@ -248,10 +241,13 @@ const handleDelete = async (id, type) => {
 const showEditModal = ref(false)
 
 const openEditModal = transaction => {
+  // 영수증 닫기
+  showReceipt.value = false
+
+  // 수정 모달 열기
   selectedTransaction.value = transaction
   showEditModal.value = true
 }
-
 const closeEditModal = () => {
   showEditModal.value = false
   selectedTransaction.value = null
@@ -266,23 +262,36 @@ onMounted(refreshData)
 </script>
 
 <style scoped>
+h2 {
+  color: #ffb400;
+  font-size: 32px;
+}
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* h2와 change-filter를 양쪽으로 배치 */
+}
+
 .history-page {
-  padding: 24px;
+  max-height: calc(100vh - 0px); /* 헤더나 다른 요소 높이 감안하여 조정 */
+  overflow-y: auto;
 }
 
 .history-filter {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   margin-bottom: 16px;
+  color: white;
 }
 
 .date-display {
   font-size: 20px;
-  background-color: #fff9e6;
+  background-color: #333333;
   display: flex;
   align-items: center;
   justify-content: center;
+
 
   padding: 6px 12px;
   gap: 80px;
@@ -305,7 +314,7 @@ onMounted(refreshData)
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fef5e7;
+  background-color: rgba(255, 223, 145, 0.8);
   padding: 10px 20px;
   border-radius: 10px;
   margin: 10px 0;
@@ -320,7 +329,7 @@ onMounted(refreshData)
 }
 
 .income {
-  color: #0977a3;
+  color: rgb(1, 147, 200);
 }
 .expense {
   color: #ff4545;
@@ -335,14 +344,16 @@ onMounted(refreshData)
   font-size: 16px;
   font-weight: lighter;
   align-items: center;
-  background-color: #fff9e6;
+  background-color: #1f1f1f;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  color: white;
 }
 
 .history-table tbody {
   font-size: 16px;
   text-align: center;
-  background-color: #fbf9f1;
+  background-color: #1f1f1f;
+  color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
 
@@ -361,11 +372,12 @@ onMounted(refreshData)
 }
 
 .filter-select {
+  color: #ffb400;
   font-size: 18px;
-  padding: 3px 12px;
+  padding: 8px 12px;
   margin-left: auto;
   border-radius: 5px;
-  background-color: #fff9e6;
+  background-color: #333333;
   border: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
