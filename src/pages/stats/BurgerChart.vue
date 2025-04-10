@@ -145,7 +145,6 @@ function getPattyHeight(percentage) {
 
 .patty-transport {
   background-color: #eee042;
-  color: black;
 }
 
 .patty-food {
