@@ -164,7 +164,7 @@ watch(
     <h2>Calendar</h2>
 
     <div class="summary-box">
-      <div class="summary-item summary-total">
+      <div class="summary-item">
         전체<br />
         <span class="amount">{{ totalSum.toLocaleString() }} 원</span>
       </div>
@@ -193,8 +193,11 @@ body,
 
 .fc {
   height: 100% !important;
-  background-color: rgb(31, 31, 31);
   color: #f0f0f0;
+}
+
+.fc .fc-daygrid-body {
+  background-color: rgba(31, 31, 31, 0.2);
 }
 
 .fc-toolbar {
@@ -215,13 +218,13 @@ body,
 }
 
 .fc .fc-col-header-cell {
-  background-color: #333333;
+  background-color: #3a4046;
 }
 
 .fc .fc-col-header-cell-cushion {
   font-size: 15px;
-  font-weight: 600;
-  color: #f2f2f2;
+  font-weight: 500;
+  color: rgb(211, 211, 211);
 }
 
 .fc .fc-toolbar-title {
@@ -262,20 +265,20 @@ body,
 }
 
 .fc .fc-daygrid-day-number {
-  font-size: 16px;
-  color: #f0f0f0;
+  font-size: 13px;
+  color: #f2f2f2;
   font-weight: 500;
 }
 
 /* 해당 제외 다른 날짜들 */
 .fc-day-other {
-  background-color: rgb(66, 66, 66);
+  background-color: rgb(66, 66, 66, 0.3);
   color: #a8a8a8;
 }
 
 /* 오늘 날짜의 배경색 */
 .fc .fc-day-today {
-  background-color: rgb(36, 78, 41) !important;
+  background-color: rgb(127, 151, 212, 0.4) !important;
 }
 
 /* 기존 스타일 끄기 */
@@ -283,12 +286,13 @@ body,
 .fc-daygrid-event-dot {
   display: none;
 }
-/* 요약카드 색상 */
+
+/* 요약카드 */
 .summary-box {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(255, 223, 145, 0.5);
+  background-color: rgba(255, 223, 145, 0.8);
   padding: 10px 20px;
   border-radius: 10px;
   margin: 10px 0;
@@ -299,15 +303,21 @@ body,
 .summary-item {
   flex: 1;
   text-align: center;
-  color: #333;
+}
+
+.summary-item:first-child {
+  color: #f2f2f2;
+  font-weight: 600;
 }
 
 .summary-item.income {
-  color: rgb(63, 176, 217);
+  color: rgb(1, 147, 200);
+  font-weight: 600;
 }
 
 .summary-item.expense {
-  color: #ff2929;
+  color: rgb(234, 3, 3);
+  font-weight: 600;
 }
 
 .summary-item .amount {
@@ -346,7 +356,7 @@ body,
   border: none !important;
   padding: 0 !important;
 }
-/* 달력 하단의 흰 여백 제거 */
+/* 달력 하단의 흰 여백 제거*/
 .fc-view-harness,
 .fc-scroller-harness {
   min-height: auto !important;
@@ -356,10 +366,10 @@ body,
 }
 
 /* 필요시 추가: 달력 전체 wrapper 높이 제한 */
-.calendar-wrapper {
-  max-height: calc(100vh - 0px); /* 헤더나 다른 요소 높이 감안하여 조정 */
+/*.calendar-wrapper {
+  max-height: calc(100vh - 0px); /* 헤더나 다른 요소 높이 감안하여 조정
   overflow-y: auto;
-}
+}*/
 
 .calendar-wrapper h2 {
   color: #ffb400;
