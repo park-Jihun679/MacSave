@@ -13,6 +13,7 @@ const userPassWord = ref('')
 const inputValue = ref('')
 
 const inputRef = ref(null)
+
 // isNew 초기 설정 확인
 onMounted(async () => {
   authStore.initAuth()
@@ -61,18 +62,18 @@ function checkpw() {
 <template>
   <div class="container">
     <img class="macSaveLogo" src="/public/logo.png" alt="macSave" />
-    <div class="lockSet">
-      <div class="title" v-if="isNew">초기 비밀번호 설정</div>
-      <div class="title" v-else>비밀번호를 입력하세요.</div>
-      <input
-        type="password"
-        class="passwordInput"
-        maxlength="4"
-        v-model.number.trim="inputValue"
-        @keyup.enter="checkpw"
-        ref="inputRef"
-      />
-    </div>
+
+    <input
+      type="password"
+      class="passwordInput"
+      maxlength="4"
+      v-model.number.trim="inputValue"
+      @keyup.enter="checkpw"
+      :placeholder="
+        isNew ? 'please set the password' : 'please enter the password'
+      "
+      ref="inputRef"
+    />
   </div>
 </template>
 
@@ -83,39 +84,29 @@ function checkpw() {
   align-items: center;
   justify-content: center;
   height: 100vh; /* 헤더 높이 빼줌 */
-  background-color: #fefcf7;
+  background-color: #1d2329;
 }
 
 .macSaveLogo {
-  width: 200px;
-}
-
-.lockSet {
-  text-align: center;
-  background-color: #fff9e6;
-  width: 320px;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-family: 'Nunito', sans-serif;
-}
-
-/* 글씨 스타일 */
-.title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 12px;
-  color: #333;
+  width: 350px;
+  opacity: 70%;
 }
 
 /* input 스타일 */
 .passwordInput {
   padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  width: 80%;
-  font-size: 16px;
+  background-color: transparent; /* 예시: 어두운 배경 */
+  color: #ccc;
+  border: none;
+  border-bottom: 3px solid #ffb400; /* 아래쪽 테두리만 */
+  width: 300px;
+  outline: none;
+  padding: 5px 0;
+  font-size: 20px;
   text-align: center;
+  font-weight: bold;
+  margin-top: 1rem;
+  color: #ffb400;
 }
 
 /* 흔들리는 애니메이션 */
@@ -135,6 +126,7 @@ function checkpw() {
 }
 .passwordInput:focus.shake {
   color: red;
+  border-bottom: 3px solid red;
 }
 .shake {
   animation: shake 0.3s;
