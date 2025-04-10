@@ -8,7 +8,7 @@
     </div>
 
     <div class="bottom-logo">
-      <img src="/MacSave.png" alt="MacSave 로고" />
+      <img src="/logo.png" alt="MacSave 로고" />
     </div>
   </aside>
 </template>
