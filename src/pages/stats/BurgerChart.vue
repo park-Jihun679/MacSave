@@ -49,13 +49,13 @@ function getPattyHeight(percentage) {
 
 <style scoped>
 .burger-chart {
-  width: 413px; 
+  width: 413px;
   height: 463px;
   margin: auto;
   font-weight: bold;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; 
+  justify-content: space-between;
   border-radius: 20px;
   padding: 12px 0;
   box-sizing: border-box;
