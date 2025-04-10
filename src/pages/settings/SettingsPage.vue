@@ -28,9 +28,10 @@ onMounted(async () => {
 const updateName = async () => {
   userName.value = newName.value
   await setUserName(newName.value)
-  alert('닉네임이 변경되었습니다 !') // ✅ 알림 추가
   editingName.value = false
   newName.value = ''
+  console.log('✅ 닉네임 변경 완료 후 alert 실행됨')
+  alert('닉네임이 변경되었습니다 !')
 }
 
 const updatePassword = async () => {
@@ -50,6 +51,7 @@ const deleteAccount = async () => {
 
   editingPassword.value = false // ?
   showRight.value = false
+  console.log('csaaaaa')
   alert('회원 탈퇴가 완료되었습니다.')
   sessionStorage.removeItem('authToken')
   router.push('/lock')
@@ -57,14 +59,14 @@ const deleteAccount = async () => {
 </script>
 
 <template>
-  <h2>⚙️ 설정</h2>
+  <h2 class="settings-title">Setting</h2>
   <div class="settings-container">
     <!-- 왼쪽 박스 -->
     <div class="receipt-box left">
       <h2 class="user-name">
         {{ userName === 'name' || !userName ? 'name님,' : userName + '님,' }}
       </h2>
-      <p class="day-msg">우리가 만난지 +1일째😍</p>
+      <p class="day-msg">우리가 만난지 +1일째 🍔</p>
 
       <div class="spacer"></div>
       <hr class="divider" />
@@ -77,22 +79,22 @@ const deleteAccount = async () => {
       <!-- 프로필 설정 헤더 -->
       <div class="section-title">
         <span class="icon">⚙️</span>
-        <span class="text">프로필 설정</span>
+        <span class="text">Profile</span>
       </div>
       <!-- 닉네임 -->
       <div class="field-row">
         <!-- 닉네임 보기 모드 -->
         <div class="input-line" v-if="!editingName">
-          <label>• 닉네임 : {{ userName }}</label>
+          <label>• name : {{ userName }}</label>
           <button class="align-right" @click="editingName = true">변경</button>
         </div>
 
         <!-- 닉네임 수정 모드 -->
         <div class="input-line" v-else>
-          <label>• 닉네임 : </label>
+          <label>• name : </label>
           <input
             v-model.trim="newName"
-            placeholder="닉네임을 설정해주세요"
+            placeholder="please set the name"
             @keyup.enter="updateName"
           />
           <button class="align-right" @click="updateName">저장</button>
@@ -101,7 +103,7 @@ const deleteAccount = async () => {
       <!-- 비밀번호 -->
       <div class="field-row">
         <div class="password-line" v-if="!editingPassword">
-          <label>• 비밀번호 : </label>
+          <label>• password : </label>
           <span>xxxx</span>
           <button class="align-right" @click="editingPassword = true">
             변경
@@ -141,13 +143,25 @@ const deleteAccount = async () => {
 .receipt-box {
   width: 300px;
   height: 500px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
   padding: 24px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  position: relative; /* ✅ 배경을 가상 요소로 넣기 위해 필요 */
+  overflow: hidden; /* ✅ 가상 배경이 삐져나가지 않게 */
+  z-index: 0; /* ✅ 내부 내용 위에 배경을 깔기 위한 전제 */
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ✅ 배경만 흐리게 처리 */
+.receipt-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: white;
+  opacity: 0.9; /* ✅ 배경만 90% 불투명 */
+  z-index: -1; /* ✅ 내용 아래로 배치 */
+  border-radius: 8px; /* ✅ 박스 둥근 테두리에 맞춰줌 */
 }
 
 .user-name {
@@ -179,7 +193,7 @@ button {
   border-radius: 6px;
   border: none;
   cursor: pointer;
-  background-color: #f4f4f4;
+  background-color: #ffdf91;
   box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.25);
 }
 
@@ -188,7 +202,6 @@ button {
   font-weight: 700;
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
   color: #5f5f5f;
-  margin-top: 18px;
 }
 
 .field-row {
@@ -225,18 +238,22 @@ button {
 input {
   margin-top: 6px;
   padding: 8px;
-  width: 40%;
+  width: 48%;
   box-sizing: border-box;
 }
 
 .delete-btn {
-  background-color: #ffb3b3;
-  color: white;
-  font-weight: bold;
+  background-color: #ffdf91;
   margin-top: 8px;
 }
 .align-right {
   margin-left: auto;
-  background-color: #ffecac;
+  background-color: #ffb400;
+}
+.settings-title {
+  color: #ffb400;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 16px;
 }
 </style>
