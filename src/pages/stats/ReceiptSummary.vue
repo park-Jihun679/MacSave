@@ -66,7 +66,7 @@ defineProps({
   color: #333;
   width: 400px;
   height: 600px;
-  margin: auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -76,29 +76,26 @@ defineProps({
   text-align: center;
   font-weight: bold;
   font-size: 18px;
-  margin-bottom: 16px;
-}
-
-.section {
-  margin-bottom: 12px;
 }
 
 .section-title {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
-  margin-bottom: 6px;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 .row {
   display: flex;
   font-size: 14px;
+  font-weight: bold;
   margin: 2px 0;
 }
 
 .summary {
   font-weight: bold;
   text-align: right;
-  margin-top: 6px;
+  margin-top: 12px;
 }
 
 .total-expense {
@@ -129,7 +126,7 @@ defineProps({
 
 .footer {
   text-align: center;
-  justify-content: space-between;
+  justify-content: right;
   display: flex;
 }
 
@@ -139,10 +136,10 @@ defineProps({
 }
 
 .brand {
-  margin-left: 40px;
   margin-top: 50px;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 16px;
   color: #555;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 </style>
