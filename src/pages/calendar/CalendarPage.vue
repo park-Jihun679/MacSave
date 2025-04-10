@@ -161,7 +161,7 @@ watch(
 
 <template>
   <div class="calendar-wrapper">
-    <h2>Calendar</h2>
+    <h2><i class="fa-solid fa-calendar-days"></i> Calendar</h2>
 
     <div class="summary-box">
       <div class="summary-item">
@@ -230,7 +230,7 @@ body,
 .fc .fc-toolbar-title {
   font-size: 20px;
   font-weight: 500;
-  color: #f0f0f0;
+  color: #ffb400;
 }
 
 .fc-button {
@@ -241,7 +241,7 @@ body,
   cursor: pointer;
   transition: background-color 0.2s ease;
   background-color: rgb(51, 51, 51) !important;
-  color: rgb(226, 226, 226) !important;
+  color: #ffb400 !important;
 }
 
 .fc-button:hover {
