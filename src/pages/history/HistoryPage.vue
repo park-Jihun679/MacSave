@@ -3,7 +3,10 @@
     <div v-if="!showModal && !showEditModal">
       <!-- 날짜 및 필터 -->
       <div class="header-row">
-        <h2>Expense</h2>
+        <div class="title">
+          <i class="fa-solid fa-money-check-dollar"></i>
+          <span>Expense</span>
+        </div>
         <div class="history-filter">
           <div class="date-display" style="color: #ffb400">
             <button @click="prevPeriod" style="color: #ffb400">&lt;</button>
@@ -287,9 +290,14 @@ onMounted(refreshData)
 </script>
 
 <style scoped>
-h2 {
+.title {
   color: #ffb400;
   font-size: 32px;
+  font-weight: bold;
+  margin-top: 24px;
+}
+.title i {
+  margin-right: 8px;
 }
 .header-row {
   display: flex;
