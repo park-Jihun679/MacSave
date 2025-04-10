@@ -59,15 +59,17 @@ defineProps({
 
 <style scoped>
 .receipt-container {
-  background: white;
+  background: #f9f9f9;
   border: 1px solid #ccc;
   padding: 24px;
-  border-radius: 12px;
   font-family: 'Arial', sans-serif;
   color: #333;
-  width: 300px;
+  width: 400px;
+  height: 600px;
   margin: auto;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .receipt-title {
@@ -109,8 +111,9 @@ defineProps({
 
 .divider {
   border: none;
-  border-top: 1px solid #aaa;
-  margin: 12px 0;
+  border-top: 3px solid #5f5f5f;
+  margin: 6px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .net-total {
@@ -125,7 +128,6 @@ defineProps({
 }
 
 .footer {
-  margin-top: 40px;
   text-align: center;
   justify-content: space-between;
   display: flex;
@@ -138,7 +140,7 @@ defineProps({
 
 .brand {
   margin-left: 40px;
-  margin-top: 30px;
+  margin-top: 50px;
   font-weight: bold;
   font-size: 13px;
   color: #555;
