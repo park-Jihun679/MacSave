@@ -35,7 +35,10 @@ function clearCategory() {
   <div class="stats-layout">
     <div class="left-panel">
       <div class="header-row">
-        <h2>{{ monthName }} Analysis</h2>
+        <h2>
+          <i class="fa-solid fa-chart-simple"></i> {{ monthName }} Hamburger
+          Analysis
+        </h2>
         <!-- <StatsFilter v-model:filter="filter" /> -->
       </div>
       <BurgerChart
