@@ -1,57 +1,82 @@
-<template>
-  <header class="app-header">
-    <div class="logo">
-      <img src="/logo.png" alt="MacSave 로고" />
-      <span class="logo-text">MacSave</span>
-    </div>
-    <div class="date">{{ today }}</div>
-  </header>
-</template>
-
 <script setup>
 import { ref } from 'vue'
 
-const today = ref(new Date().toISOString().split('T')[0])
+const today = ref(
+  new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }),
+)
 </script>
+
+<template>
+  <header class="app-header">
+    <!-- 왼쪽: 로고 -->
+    <div class="left">
+      <img class="logo" src="/logo.png" alt="MacSave 로고" />
+    </div>
+
+    <!-- 오른쪽: 메뉴 + 날짜 묶음 -->
+    <div class="right-group">
+      <nav class="menu-list">
+        <RouterLink to="/history" class="menu-item" exact>Expense</RouterLink>
+        <RouterLink to="/calendar" class="menu-item" exact>Calendar</RouterLink>
+        <RouterLink to="/stats" class="menu-item" exact>Analysis</RouterLink>
+        <RouterLink to="/settings" class="menu-item" exact>Setting</RouterLink>
+      </nav>
+      <div class="date">{{ today }}</div>
+    </div>
+  </header>
+</template>
 
 <style scoped>
 .app-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  background-color: #fff9e6;
-  padding: 12px 24px;
-  height: 56px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-  z-index: 10;
+  background-color: #1d2329;
+  padding: 0 24px;
 }
 
 .logo {
+  width: 70px;
+  height: auto;
+}
+
+/* 오른쪽 영역 전체 (메뉴 + 날짜) */
+.right-group {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 32px;
 }
 
-.logo img {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  vertical-align: middle;
+/* 메뉴 */
+.menu-list {
+  display: flex;
+  gap: 30px;
 }
 
-.logo-text {
-  font-size: 24px;
-  font-weight: 900;
-  color: #222;
-  text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.5);
-  letter-spacing: 1px;
-  font-family: 'Nunito', sans-serif;
+.menu-item {
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #ffb400;
+  padding: 6px 10px;
+  border-radius: 8px;
 }
 
+.router-link-exact-active {
+  background-color: rgba(255, 223, 145, 0.5);
+  box-shadow: inset 0 2px 0px rgba(0, 0, 0, 0.7);
+}
+
+/* 날짜는 맨 오른쪽 */
 .date {
-  font-size: 16px;
-  color: #222;
-  text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
-  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 15px;
+  color: #8a8a8a;
+  white-space: nowrap;
+  position: relative;
+  top: -13px;
+  font-weight: 900;
 }
 </style>
