@@ -1,4 +1,8 @@
 <script setup>
+// 햄버거 버전
+import { useBurgerModeStore } from '@/stores/burgerMode'
+const burgerStore = useBurgerModeStore()
+
 const props = defineProps({
   totalIncome: Number,
   totalAmount: Number,
@@ -27,7 +31,11 @@ function getPattyHeight(percentage) {
     <div class="bun top-bun">
       <span
         >수입:<br />
-        {{ totalIncome.toLocaleString() }}</span
+        {{
+          burgerStore.isBurgerMode
+            ? burgerStore.burgerFormat(totalIncome)
+            : totalIncome.toLocaleString() + '원'
+        }}</span
       >
     </div>
 
@@ -40,12 +48,23 @@ function getPattyHeight(percentage) {
         :style="{ height: getPattyHeight(item.percentage) }"
         @click="$emit('select-category', category)"
       >
-        {{ category }}: {{ item.amount.toLocaleString() }}
+        {{ category }}:
+        {{
+          burgerStore.isBurgerMode
+            ? burgerStore.burgerFormat(item.amount)
+            : item.amount.toLocaleString() + '원'
+        }}
       </div>
     </div>
 
     <div class="bun bottom-bun">
-      <span>총 합계: <br />{{ totalAmount.toLocaleString() }}</span>
+      <span
+        >총 합계: <br />{{
+          burgerStore.isBurgerMode
+            ? burgerStore.burgerFormat(totalAmount)
+            : totalAmount.toLocaleString() + '원'
+        }}</span
+      >
     </div>
   </div>
 </template>

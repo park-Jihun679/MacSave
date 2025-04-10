@@ -6,6 +6,9 @@ import koLocale from '@fullcalendar/core/locales/ko'
 import { useIncomeStore } from '@/stores/incomeStores'
 import { useExpenseStore } from '@/stores/expenseStores'
 import dayjs from 'dayjs'
+// 햄버거 모드
+import { useBurgerModeStore } from '@/stores/burgerMode'
+const burgerStore = useBurgerModeStore()
 
 const incomeStore = useIncomeStore()
 const expenseStore = useExpenseStore()
@@ -166,15 +169,35 @@ watch(
     <div class="summary-box">
       <div class="summary-item">
         전체<br />
-        <span class="amount">{{ totalSum.toLocaleString() }} 원</span>
+        <span class="amount">
+          {{
+            burgerStore.isBurgerMode
+              ? burgerStore.burgerFormat(totalSum)
+              : totalSum.toLocaleString() + '원'
+          }}
+        </span>
       </div>
       <div class="summary-item income">
         수입<br />
-        <span class="amount">{{ totalIncome.toLocaleString() }} 원</span>
+
+        <span class="amount">
+          {{
+            burgerStore.isBurgerMode
+              ? burgerStore.burgerFormat(totalIncome)
+              : totalIncome.toLocaleString() + '원'
+          }}
+        </span>
       </div>
       <div class="summary-item expense">
         지출<br />
-        <span class="amount">{{ totalExpense.toLocaleString() }} 원</span>
+
+        <span class="amount">
+          {{
+            burgerStore.isBurgerMode
+              ? burgerStore.burgerFormat(totalExpense)
+              : totalExpense.toLocaleString() + '원'
+          }}
+        </span>
       </div>
     </div>
 

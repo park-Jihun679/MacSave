@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from 'vue'
+import { useBurgerModeStore } from '@/stores/burgerMode'
+const burgerStore = useBurgerModeStore()
 
 const today = ref(
   new Date().toLocaleDateString('en-US', {
@@ -39,7 +41,13 @@ const menuItems = [
             hoveredIndex === index ? item.hoverLabel : item.label
           }}</RouterLink
         >
-        <button class="burgerbtn"><i class="fa-solid fa-burger"></i></button>
+        <button
+          class="burgerbtn"
+          :class="{ active: burgerStore.isBurgerMode }"
+          @click="burgerStore.toggleMode"
+        >
+          <i class="fa-solid fa-burger"></i>
+        </button>
       </nav>
       <div class="date">{{ today }}</div>
     </div>
@@ -96,7 +104,7 @@ const menuItems = [
   border-radius: 8px;
 }
 .burgerbtn.active {
-  border: 1px solid #ffb400;
+  border: 2px solid #ffb400;
 }
 .fa-burger {
   color: #ffb400;
