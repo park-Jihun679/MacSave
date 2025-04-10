@@ -2,8 +2,17 @@
 
 <template>
   <div>
-    <h1>MacSave</h1>
+    <router-view />
   </div>
 </template>
 
-<style scoped></style>
+<style>
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Pretendard', sans-serif;
+}
+</style>
