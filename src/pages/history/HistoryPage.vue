@@ -307,7 +307,7 @@ onMounted(refreshData)
 
 .history-page {
   max-height: calc(100vh - 0px); /* 헤더나 다른 요소 높이 감안하여 조정 */
-  /* overflow-y: auto; */
+  overflow-y: auto;
 }
 
 .history-filter {
