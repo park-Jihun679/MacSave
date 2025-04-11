@@ -119,7 +119,11 @@ MacSave 가계부의 초기화면입니다.
 MacSave 가계부의 소비/지출 내역입니다.
 db.json에 저장된 내용을 불러와 지출/소비 내역을 출력합니다.
 ![MacSave 소비/지출 추가](./public/readme/add.png)
-![MacSave 소비/지출 영수증](./public/readme/receipt.png)
+<div align="center">
+  <img src="./public/readme/receipt.png" alt="MacSave 햄버거 영수증" width="200">
+  <p>내역 영수증</p>
+</div>
+
 + 주요기능
   +  필터기능을 활용하여 주/월/연별로 조회가 가능합니다.
   +  `+` 버튼을 클릭하여 실시간으로 소비/지출 내역 추가가 가능합니다.
@@ -140,7 +144,11 @@ MacSave 가계부의 달력형식 내역입니다.
 햄버거형태의 소비내역 요약 그래프입니다.
 카테고리별 소비금액을 바탕으로 카테고리별 패티의 크기가 변경됩니다.
 카테고리에 해당하는 패티를 클릭시 해당 카테고리 항목에 해당되는 상세 영수증이 출력됩니다.
-![MacSave 햄버거 통계 영수증](./public/readme/stats_receipt.png)
+<div align="center">
+  <img src="./public/readme/stats_receipt.png" alt="MacSave 햄버거 통계 영수증" width="200">
+  <p>카테고리 별 내역 영수증</p>
+</div>
+
 ### 5. Setting (설정)
 
 사용자 정보를 제공 및 변경 가능한 설정기능을 제공합니다.
