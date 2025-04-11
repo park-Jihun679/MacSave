@@ -3,7 +3,7 @@
     <div v-if="!showModal && !showEditModal">
       <!-- 날짜 및 필터 -->
       <div class="header-row">
-        <div class="title">
+        <div class="title" style="margin-bottom: 20px">
           <i class="fa-solid fa-money-check-dollar"></i>
           <span>Expense</span>
         </div>
@@ -307,7 +307,7 @@ onMounted(refreshData)
 
 .history-page {
   max-height: calc(100vh - 0px); /* 헤더나 다른 요소 높이 감안하여 조정 */
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 .history-filter {
